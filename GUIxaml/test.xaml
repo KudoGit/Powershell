@@ -1,0 +1,68 @@
+<Window 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="iFocus Printing" Height="350" Width="525">
+    <Grid>
+    
+        <TextBlock Name="textBlock" HorizontalAlignment="Left" Margin="60,46,0,0" TextWrapping="Wrap" Text="Subject:" VerticalAlignment="Top"/>
+        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="146,46,0,0" TextWrapping="Wrap" Text="Grade:" VerticalAlignment="Top" RenderTransformOrigin="0.403,3.024"/>
+        <TextBlock Name="textBlock2" HorizontalAlignment="Left" Margin="215,46,0,0" TextWrapping="Wrap" Text="Type/Lesson" VerticalAlignment="Top"/>
+        <TextBlock Name="textBlock3" HorizontalAlignment="Left" Margin="60,152,0,0" TextWrapping="Wrap" Text="To:" VerticalAlignment="Top"/>
+    
+        <Button Name="button1" Content="Open" HorizontalAlignment="Left" Margin="414,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Name="button2" Content="Print" HorizontalAlignment="Left" Margin="414,125,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Name="button3" Content="Open Range" HorizontalAlignment="Left" Margin="414,173,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Name="button4" Content="Print Range" HorizontalAlignment="Left" Margin="414,213,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <ComboBox Name="comboBox1" HorizontalAlignment="Left" Margin="60,85,0,0" VerticalAlignment="Top" Width="65">
+            <ComboBoxItem>CCSSM</ComboBoxItem>
+            <ComboBoxItem>FM</ComboBoxItem>
+            <ComboBoxItem>SM</ComboBoxItem>
+            <ComboBoxItem>STAMS</ComboBoxItem>
+            <ComboBoxItem>CCSSR</ComboBoxItem>
+            <ComboBoxItem>FR</ComboBoxItem>
+            <ComboBoxItem>LF</ComboBoxItem>
+            <ComboBoxItem>VF</ComboBoxItem>
+            <ComboBoxItem>SV</ComboBoxItem>
+            <ComboBoxItem>PH</ComboBoxItem>
+            <ComboBoxItem>STARS</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Name="comboBox2" HorizontalAlignment="Left" Margin="146,85,0,0" VerticalAlignment="Top" Width="50">
+            <ComboBoxItem>1A</ComboBoxItem>
+            <ComboBoxItem>1B</ComboBoxItem>
+            <ComboBoxItem>2A</ComboBoxItem>
+            <ComboBoxItem>2B</ComboBoxItem>
+            <ComboBoxItem>3A</ComboBoxItem>
+            <ComboBoxItem>3B</ComboBoxItem>
+            <ComboBoxItem>4A</ComboBoxItem>
+            <ComboBoxItem>4B</ComboBoxItem>
+            <ComboBoxItem>5A</ComboBoxItem>
+            <ComboBoxItem>5B</ComboBoxItem>
+            <ComboBoxItem>6A</ComboBoxItem>
+            <ComboBoxItem>6B</ComboBoxItem>
+            <ComboBoxItem>7A</ComboBoxItem>
+            <ComboBoxItem>7B</ComboBoxItem>
+            <ComboBoxItem>8A</ComboBoxItem>
+            <ComboBoxItem>8B</ComboBoxItem>
+            <ComboBoxItem>A</ComboBoxItem>
+            <ComboBoxItem>B</ComboBoxItem>
+            <ComboBoxItem>C</ComboBoxItem>
+            <ComboBoxItem>D</ComboBoxItem>
+            <ComboBoxItem>E</ComboBoxItem>
+            <ComboBoxItem>F</ComboBoxItem>
+            <ComboBoxItem>G</ComboBoxItem>
+            <ComboBoxItem>H</ComboBoxItem>
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+            <ComboBoxItem>3</ComboBoxItem>
+            <ComboBoxItem>4</ComboBoxItem>
+            <ComboBoxItem>6</ComboBoxItem>
+            <ComboBoxItem>7</ComboBoxItem>
+            <ComboBoxItem>8</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Name="comboBox3" HorizontalAlignment="Left" Margin="215,85,0,0" VerticalAlignment="Top" Width="60"/>
+        <TextBlock Name="textBlock4" HorizontalAlignment="Left" Margin="60,173,0,0" VerticalAlignment="Top" TextWrapping="Wrap" Text="CCSSM"/>
+        <ComboBox Name="comboBox4" HorizontalAlignment="Left" Margin="146,173,0,0" VerticalAlignment="Top" Width="50"/>
+        <ComboBox Name="comboBox5" HorizontalAlignment="Left" Margin="215,173,0,0" VerticalAlignment="Top" Width="60"/>
+    </Grid>
+</Window>
