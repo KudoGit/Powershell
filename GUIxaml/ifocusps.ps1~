@@ -87,7 +87,7 @@ $gradesm     = "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A",
 $VFT         = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF", "PL", "SUF", "ROOT", "IDI", "BLEN", "CLIP", "WP", "HET"
 $LFT         = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Sent Ed", "Para Ed"
 $FRT         = "C&C", "DCMI", "MP", "C&E", "MID", "SEQ"
-$FMT         = "BNS", "DPA", "IGC", "UA", "UE", "UG"
+$FMT         = "BNS", "Filler"
 
 $SV9         = "L1-3", "L5-6", "L7-9"
 $SV12        = "L1-4", "L5-8", "L9-12"
