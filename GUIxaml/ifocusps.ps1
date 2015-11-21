@@ -106,134 +106,82 @@ function Box-Change {
   $ComboBoxNum.SelectedIndex = 0
 }
 
-$comboBox2.add_SelectionChanged({
-  $CBOX1 = $null
-  $CBOX2 = $null
+function Grade-Select{
+  param($GradeBox, $TypeBox)
+  $Subject = $null
+  $Grade = $null
   try {
-    $CBOX1 = $comboBox1.SelectedItem.ToString()
-    $CBOX2 = $comboBox2.SelectedItem.ToString()
+    $Subject = $comboBox1.SelectedItem.ToString()
+    $Grade = $GradeBox.SelectedItem.ToString()
   } catch [system.exception] {
     return
   } finally {}
-  if ($CBOX1 -like "*CCSSM") {
-    $comboBox3.Items.Clear()
-    if($CBOX2 -like "*1") {
-      Box-Change $comboBox3 $CCSMG1
-    } elseif ($CBOX2 -like "*2") {
-      Box-Change $comboBox3 $CCSMG2
-    } elseif ($CBOX2 -like "*6") {
-      Box-Change $comboBox3 $CCSMG6
-    } elseif ($CBOX2 -like "*K") {
-      Box-Change $comboBox3 $CCSMGK
-    } elseif (($CBOX2 -like "*5") -or ($CBOX2 -like "*8")) {
-      Box-Change $comboBox3 $CCSMG58
+  if ($Subject -like "*CCSSM") {
+    $TypeBox.Items.Clear()
+    if($Grade -like "*1") {
+      Box-Change $TypeBox $CCSMG1
+    } elseif ($Grade -like "*2") {
+      Box-Change $TypeBox $CCSMG2
+    } elseif ($Grade -like "*6") {
+      Box-Change $TypeBox $CCSMG6
+    } elseif ($Grade -like "*K") {
+      Box-Change $TypeBox $CCSMGK
+    } elseif (($Grade -like "*5") -or ($Grade -like "*8")) {
+      Box-Change $TypeBox $CCSMG58
     } else {
-      Box-Change $comboBox3 $CCSMG347
+      Box-Change $TypeBox $CCSMG347
     }
-  } elseif ($CBOX1 -like "*CCSSR") {
-    $comboBox3.Items.Clear()
-    if($CBOX2 -like "*K") {
-      Box-Change $comboBox3 $CCSRGK
-    } elseif ($CBOX2 -like "*4") {
-      Box-Change $comboBox3 $CCSRG4
-    } elseif ($CBOX2 -like "*6") {
-      Box-Change $comboBox3 $CCSRG6
-    } elseif ($CBOX2 -like "*7") {
-      Box-Change $comboBox3 $CCSRG7
-    } elseif (($CBOX2 -like "*1") -or ($CBOX2 -like "*8")) {
-      Box-Change $comboBox3 $CCSR18
+  } elseif ($Subject -like "*CCSSR") {
+    $TypeBox.Items.Clear()
+    if($Grade -like "*K") {
+      Box-Change $TypeBox $CCSRGK
+    } elseif ($Grade -like "*4") {
+      Box-Change $TypeBox $CCSRG4
+    } elseif ($Grade -like "*6") {
+      Box-Change $TypeBox $CCSRG6
+    } elseif ($Grade -like "*7") {
+      Box-Change $TypeBox $CCSRG7
+    } elseif (($Grade -like "*1") -or ($Grade -like "*8")) {
+      Box-Change $TypeBox $CCSR18
     } else {
-      Box-Change $comboBox3 $CCSRG235
+      Box-Change $TypeBox $CCSRG235
     }
-  } elseif ($CBOX1 -like "*PH") {
-    $comboBox3.Items.Clear()
-    if($CBOX2 -like "*1") {
-      Box-Change $comboBox3 $PHT1
-    } elseif ($CBOX2 -like "*2") {
-      Box-Change $comboBox3 $PHT2
-    } elseif ($CBOX2 -like "*3") {
-      Box-Change $comboBox3 $PHT3
+  } elseif ($Subject -like "*PH") {
+    $TypeBox.Items.Clear()
+    if($Grade -like "*1") {
+      Box-Change $TypeBox $PHT1
+    } elseif ($Grade -like "*2") {
+      Box-Change $TypeBox $PHT2
+    } elseif ($Grade -like "*3") {
+      Box-Change $TypeBox $PHT3
     }
-  } elseif ($CBOX1 -like "*SV") {
-    $comboBox3.Items.Clear()
-    if($CBOX2 -like "*A") {
-      Box-Change $comboBox3 $SV9
-    } elseif ($CBOX2 -like "*B") {
-      Box-Change $comboBox3 $SV12
+  } elseif ($Subject -like "*SV") {
+    $TypeBox.Items.Clear()
+    if($Grade -like "*A") {
+      Box-Change $TypeBox $SV9
+    } elseif ($Grade -like "*B") {
+      Box-Change $TypeBox $SV12
     } else {
-      Box-Change $comboBox3 $SV15
+      Box-Change $TypeBox $SV15
     }
-  } elseif ($CBOX1 -like "*STARS") {
-    $comboBox3.Items.Clear()
-    if(($CBOX2 -like "*AA") -or ($CBOX2 -like "*K")) {
-      Box-Change $comboBox3 $STARS6
-    } elseif ($CBOX2 -like "*A") {
-      Box-Change $comboBox3 $STARS8
+  } elseif ($Subject -like "*STARS") {
+    $TypeBox.Items.Clear()
+    if(($Grade -like "*AA") -or ($Grade -like "*K")) {
+      Box-Change $TypeBox $STARS6
+    } elseif ($Grade -like "*A") {
+      Box-Change $TypeBox $STARS8
     } else {
-      Box-Change $comboBox3 $STARS12
+      Box-Change $TypeBox $STARS12
     }
   }
+}
+
+$comboBox2.add_SelectionChanged({
+  Grade-Select $comboBox2 $comboBox3
 })
 
 $comboBox4.add_SelectionChanged({
-  if ($comboBox1.SelectedItem.ToString() -like "*CCSSM") {
-    $comboBox5.Items.Clear()
-    if($comboBox4.SelectedItem.ToString() -like "*1") {
-      Box-Change $comboBox5 $CCSMG1
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*2") {
-      Box-Change $comboBox5 $CCSMG2
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*6") {
-      Box-Change $comboBox5 $CCSMG6
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*K") {
-      Box-Change $comboBox5 $CCSMGK
-    } elseif (($comboBox4.SelectedItem.ToString() -like "*5") -or ($comboBox4.SelectedItem.ToString() -like "*8")) {
-      Box-Change $comboBox5 $CCSMG58
-    } else {
-      Box-Change $comboBox5 $CCSMG347
-    }
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*CCSSR") {
-    $comboBox5.Items.Clear()
-    if($comboBox4.SelectedItem.ToString() -like "*K") {
-      Box-Change $comboBox5 $CCSRGK
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*4") {
-      Box-Change $comboBox5 $CCSRG4
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*6") {
-      Box-Change $comboBox5 $CCSRG6
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*7") {
-      Box-Change $comboBox5 $CCSRG7
-    } elseif (($comboBox4.SelectedItem.ToString() -like "*1") -or ($comboBox4.SelectedItem.ToString() -like "*8")) {
-      Box-Change $comboBox5 $CCSR18
-    } else {
-      Box-Change $comboBox5 $CCSRG235
-    }
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*PH") {
-    $comboBox5.Items.Clear()
-    if($comboBox4.SelectedItem.ToString() -like "*1") {
-      Box-Change $comboBox5 $PHT1
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*2") {
-      Box-Change $comboBox5 $PHT2
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*3") {
-      Box-Change $comboBox5 $PHT3
-    }
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*SV") {
-    $comboBox5.Items.Clear()
-    if($comboBox4.SelectedItem.ToString() -like "*A") {
-      Box-Change $comboBox5 $SV9
-    } elseif ($comboBox2.SelectedItem.ToString() -like "*B") {
-      Box-Change $comboBox5 $SV12
-    } else {
-      Box-Change $comboBox5 $SV15
-    }
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*STARS") {
-    $comboBox5.Items.Clear()
-    if($comboBox4.SelectedItem.ToString() -like "*AA" -or $comboBox4.SelectedItem.ToString() -like "*K") {
-      Box-Change $comboBox5 $STARS6
-    } elseif ($comboBox4.SelectedItem.ToString() -like "*A") {
-      Box-Change $comboBox5 $STARS8
-    } else {
-      Box-Change $comboBox5 $STARS12
-    }
-  }
+  Grade-Select $comboBox4 $comboBox5
 })
 
 $comboBox1.add_SelectionChanged({
@@ -297,7 +245,6 @@ $comboBox1.add_SelectionChanged({
     $textBlock4.Text = "STAMS"
   }
 })
-
 
 function Find-File{
   param([bool]$print)
@@ -537,6 +484,7 @@ function Find-File{
     #Open the directory where it should be and let the worker manually navigate to it
     ii $DIRECTORY
   }
+
   #Print out what was looked for, whether it exists or not.
   Write-Host $DIRECTORY
   Write-Host $FILE
@@ -550,54 +498,34 @@ $button2.add_Click({
   Find-File $true
 })
 
-$button3.add_Click({
+function Find-Range {
+  param($print)
   $start2 = $comboBox2.SelectedIndex
   $start3 = $comboBox3.SelectedIndex
   $end2   = $comboBox4.SelectedIndex
   $end3   = $comboBox5.SelectedIndex
-  if($start2 -gt $end2) {
-    return
-  }
-  
   for($i=0; $i -lt $comboBox2.Items.Count; $i++) {
     for($j=0; $j -lt $comboBox3.Items.Count; $j++) {
       if(($end2 -eq $i -and $end3 -lt $j) -or ($end2 -lt $i) ) {
-        return
+        break
       }
       if(($start2 -eq $i -and $start3 -le $j) -or ($start2 -lt $i) ) {
         $comboBox2.SelectedIndex = $i
         $comboBox3.SelectedIndex = $j
-        Find-File $false
+        Find-File $print
       }
     }
   }
   $comboBox2.SelectedIndex = $start2
   $comboBox3.SelectedIndex = $start3
+}
+
+$button3.add_Click({
+  Find-Range $false
 })
 
 $button4.add_Click({
-  $start2 = $comboBox2.SelectedIndex
-  $start3 = $comboBox3.SelectedIndex
-  $end2   = $comboBox4.SelectedIndex
-  $end3   = $comboBox5.SelectedIndex
-  if($start2 -gt $end2) {
-    return
-  }
-  
-  for($i=0; $i -lt $comboBox2.Items.Count; $i++) {
-    for($j=0; $j -lt $comboBox3.Items.Count; $j++) {
-      if(($end2 -eq $i -and $end3 -lt $j) -or ($end2 -lt $i) ) {
-        return
-      }
-      if(($start2 -eq $i -and $start3 -le $j) -or ($start2 -lt $i) ) {
-        $comboBox2.SelectedIndex = $i
-        $comboBox3.SelectedIndex = $j
-        Find-File $true
-      }
-    }
-  }
-  $comboBox2.SelectedIndex = $start2
-  $comboBox3.SelectedIndex = $start3
+  Find-Range $true
 })
 
 #Launch the window
