@@ -103,73 +103,76 @@ function Box-Change {
   for($i=0; $i -lt $Array.length; $i++) {
     $ComboBoxNum.Items.add($array[$i])
   }
+  $ComboBoxNum.SelectedIndex = 0
 }
 
 $comboBox2.add_SelectionChanged({
-  if ($comboBox1.SelectedItem.ToString() -like "*CCSSM") {
+  $CBOX1 = $null
+  $CBOX2 = $null
+  try {
+    $CBOX1 = $comboBox1.SelectedItem.ToString()
+    $CBOX2 = $comboBox2.SelectedItem.ToString()
+  } catch [system.exception] {
+    return
+  } finally {}
+  if ($CBOX1 -like "*CCSSM") {
     $comboBox3.Items.Clear()
-    if($comboBox2.SelectedItem.ToString() -like "*1") {
+    if($CBOX2 -like "*1") {
       Box-Change $comboBox3 $CCSMG1
-    } elseif($comboBox2.SelectedItem.ToString() -like "*2") {
+    } elseif ($CBOX2 -like "*2") {
       Box-Change $comboBox3 $CCSMG2
-    } elseif($comboBox2.SelectedItem.ToString() -like "*6") {
+    } elseif ($CBOX2 -like "*6") {
       Box-Change $comboBox3 $CCSMG6
-    } elseif($comboBox2.SelectedItem.ToString() -like "*K") {
+    } elseif ($CBOX2 -like "*K") {
       Box-Change $comboBox3 $CCSMGK
-    } elseif(($comboBox2.SelectedItem.ToString() -like "*5") -or ($comboBox2.SelectedItem.ToString() -like "*8")) {
+    } elseif (($CBOX2 -like "*5") -or ($CBOX2 -like "*8")) {
       Box-Change $comboBox3 $CCSMG58
     } else {
       Box-Change $comboBox3 $CCSMG347
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*CCSSR") {
+  } elseif ($CBOX1 -like "*CCSSR") {
     $comboBox3.Items.Clear()
-    if($comboBox2.SelectedItem.ToString() -like "*K") {
+    if($CBOX2 -like "*K") {
       Box-Change $comboBox3 $CCSRGK
-    } elseif($comboBox2.SelectedItem.ToString() -like "*4") {
+    } elseif ($CBOX2 -like "*4") {
       Box-Change $comboBox3 $CCSRG4
-    } elseif($comboBox2.SelectedItem.ToString() -like "*6") {
+    } elseif ($CBOX2 -like "*6") {
       Box-Change $comboBox3 $CCSRG6
-    } elseif($comboBox2.SelectedItem.ToString() -like "*7") {
+    } elseif ($CBOX2 -like "*7") {
       Box-Change $comboBox3 $CCSRG7
-    } elseif(($comboBox2.SelectedItem.ToString() -like "*1") -or ($comboBox2.SelectedItem.ToString() -like "*8")) {
+    } elseif (($CBOX2 -like "*1") -or ($CBOX2 -like "*8")) {
       Box-Change $comboBox3 $CCSR18
     } else {
       Box-Change $comboBox3 $CCSRG235
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*PH") {
+  } elseif ($CBOX1 -like "*PH") {
     $comboBox3.Items.Clear()
-    if($comboBox2.SelectedItem.ToString() -like "*1") {
+    if($CBOX2 -like "*1") {
       Box-Change $comboBox3 $PHT1
-    } elseif($comboBox2.SelectedItem.ToString() -like "*2") {
+    } elseif ($CBOX2 -like "*2") {
       Box-Change $comboBox3 $PHT2
-    } elseif($comboBox2.SelectedItem.ToString() -like "*3") {
+    } elseif ($CBOX2 -like "*3") {
       Box-Change $comboBox3 $PHT3
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*SV") {
+  } elseif ($CBOX1 -like "*SV") {
     $comboBox3.Items.Clear()
-    if($comboBox2.SelectedItem.ToString() -like "*A") {
+    if($CBOX2 -like "*A") {
       Box-Change $comboBox3 $SV9
-    } elseif($comboBox2.SelectedItem.ToString() -like "*B") {
+    } elseif ($CBOX2 -like "*B") {
       Box-Change $comboBox3 $SV12
     } else {
       Box-Change $comboBox3 $SV15
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*STARS") {
+  } elseif ($CBOX1 -like "*STARS") {
     $comboBox3.Items.Clear()
-    if(($comboBox2.SelectedItem.ToString() -like "*AA") -or ($comboBox2.SelectedItem.ToString() -like "*K")) {
+    if(($CBOX2 -like "*AA") -or ($CBOX2 -like "*K")) {
       Box-Change $comboBox3 $STARS6
-    } elseif($comboBox2.SelectedItem.ToString() -like "*A") {
+    } elseif ($CBOX2 -like "*A") {
       Box-Change $comboBox3 $STARS8
     } else {
       Box-Change $comboBox3 $STARS12
     }
   }
-
-  
 })
 
 $comboBox4.add_SelectionChanged({
@@ -177,59 +180,55 @@ $comboBox4.add_SelectionChanged({
     $comboBox5.Items.Clear()
     if($comboBox4.SelectedItem.ToString() -like "*1") {
       Box-Change $comboBox5 $CCSMG1
-    } elseif($comboBox4.SelectedItem.ToString() -like "*2") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*2") {
       Box-Change $comboBox5 $CCSMG2
-    } elseif($comboBox4.SelectedItem.ToString() -like "*6") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*6") {
       Box-Change $comboBox5 $CCSMG6
-    } elseif($comboBox4.SelectedItem.ToString() -like "*K") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*K") {
       Box-Change $comboBox5 $CCSMGK
-    } elseif(($comboBox4.SelectedItem.ToString() -like "*5") -or ($comboBox4.SelectedItem.ToString() -like "*8")) {
+    } elseif (($comboBox4.SelectedItem.ToString() -like "*5") -or ($comboBox4.SelectedItem.ToString() -like "*8")) {
       Box-Change $comboBox5 $CCSMG58
     } else {
       Box-Change $comboBox5 $CCSMG347
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*CCSSR") {
+  } elseif ($comboBox1.SelectedItem.ToString() -like "*CCSSR") {
     $comboBox5.Items.Clear()
     if($comboBox4.SelectedItem.ToString() -like "*K") {
       Box-Change $comboBox5 $CCSRGK
-    } elseif($comboBox4.SelectedItem.ToString() -like "*4") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*4") {
       Box-Change $comboBox5 $CCSRG4
-    } elseif($comboBox4.SelectedItem.ToString() -like "*6") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*6") {
       Box-Change $comboBox5 $CCSRG6
-    } elseif($comboBox4.SelectedItem.ToString() -like "*7") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*7") {
       Box-Change $comboBox5 $CCSRG7
-    } elseif(($comboBox4.SelectedItem.ToString() -like "*1") -or ($comboBox4.SelectedItem.ToString() -like "*8")) {
+    } elseif (($comboBox4.SelectedItem.ToString() -like "*1") -or ($comboBox4.SelectedItem.ToString() -like "*8")) {
       Box-Change $comboBox5 $CCSR18
     } else {
       Box-Change $comboBox5 $CCSRG235
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*PH") {i
+  } elseif ($comboBox1.SelectedItem.ToString() -like "*PH") {
     $comboBox5.Items.Clear()
     if($comboBox4.SelectedItem.ToString() -like "*1") {
       Box-Change $comboBox5 $PHT1
-    } elseif($comboBox4.SelectedItem.ToString() -like "*2") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*2") {
       Box-Change $comboBox5 $PHT2
-    } elseif($comboBox4.SelectedItem.ToString() -like "*3") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*3") {
       Box-Change $comboBox5 $PHT3
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*SV") {
+  } elseif ($comboBox1.SelectedItem.ToString() -like "*SV") {
     $comboBox5.Items.Clear()
     if($comboBox4.SelectedItem.ToString() -like "*A") {
       Box-Change $comboBox5 $SV9
-    } elseif($comboBox2.SelectedItem.ToString() -like "*B") {
+    } elseif ($comboBox2.SelectedItem.ToString() -like "*B") {
       Box-Change $comboBox5 $SV12
     } else {
       Box-Change $comboBox5 $SV15
     }
-  }
-  if ($comboBox1.SelectedItem.ToString() -like "*STARS") {
+  } elseif ($comboBox1.SelectedItem.ToString() -like "*STARS") {
     $comboBox5.Items.Clear()
     if($comboBox4.SelectedItem.ToString() -like "*AA" -or $comboBox4.SelectedItem.ToString() -like "*K") {
       Box-Change $comboBox5 $STARS6
-    } elseif($comboBox4.SelectedItem.ToString() -like "*A") {
+    } elseif ($comboBox4.SelectedItem.ToString() -like "*A") {
       Box-Change $comboBox5 $STARS8
     } else {
       Box-Change $comboBox5 $STARS12
@@ -238,7 +237,6 @@ $comboBox4.add_SelectionChanged({
 })
 
 $comboBox1.add_SelectionChanged({
-  Write-Host "Subject Changed"
   $comboBox2.Items.Clear()
   $comboBox3.Items.Clear()
   $comboBox4.Items.Clear()
@@ -288,6 +286,8 @@ $comboBox1.add_SelectionChanged({
     Box-Change $comboBox4 $gradec
     $textBlock4.Text = "SV"
   } elseif ($comboBox1.SelectedItem.ToString() -like "*STARS") {
+    $comboBox2.Items.add("AA")
+    $comboBox4.Items.add("AA")
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     $textBlock4.Text = "STARS"
@@ -308,209 +308,213 @@ function Find-File{
 
   $VFUNIT = $null
 
+  $CBOX1 = $comboBox1.SelectedItem.ToString()
+  $CBOX2 = $comboBox2.SelectedItem.ToString()
+  $CBOX3 = $comboBox3.SelectedItem.ToString()
+  
 #Converts user inputted shorthand into the actual filename counterparts
-  if($comboBox3.SelectedItem.ToString() -like "*RW") {
+  if($CBOX3 -like "*RW") {
     $FULLTYPE = "Rhyming Words"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*CW") {
+  } elseif ($CBOX3 -like "*CW") {
     $FULLTYPE = "Compound Words"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*CONT") {
+  } elseif ($CBOX3 -like "*CONT") {
     $FULLTYPE = "Contractions"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*SYN") {
+  } elseif ($CBOX3 -like "*SYN") {
     $FULLTYPE = "Synonyms"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*ANT") {
+  } elseif ($CBOX3 -like "*ANT") {
     $FULLTYPE = "Antonyms"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*HP") {
+  } elseif ($CBOX3 -like "*HP") {
     $FULLTYPE = "Homophones"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*HG") {
+  } elseif ($CBOX3 -like "*HG") {
     $FULLTYPE = "Homographs"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*PREF") {
+  } elseif ($CBOX3 -like "*PREF") {
     $FULLTYPE = "Prefixes"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*WP") {
+  } elseif ($CBOX3 -like "*WP") {
     $FULLTYPE = "Word Play"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*PL") {
+  } elseif ($CBOX3 -like "*PL") {
     $FULLTYPE = "Precise Language"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*SUF") {
+  } elseif ($CBOX3 -like "*SUF") {
     $FULLTYPE = "Suffixes"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*ROOT") {
+  } elseif ($CBOX3 -like "*ROOT") {
     $FULLTYPE = "Roots"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*IDI") {
+  } elseif ($CBOX3 -like "*IDI") {
     $FULLTYPE = "Idioms"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*BLEN") {
+  } elseif ($CBOX3 -like "*BLEN") {
     $FULLTYPE = "Blended Words"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*CLIP") {
+  } elseif ($CBOX3 -like "*CLIP") {
     $FULLTYPE = "Clipped Words"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*HET") {
+  } elseif ($CBOX3 -like "*HET") {
     $FULLTYPE = "Heteronyms"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Nouns") {
+  } elseif ($CBOX3 -like "*Nouns") {
     $FULLTYPE = "Nouns"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Adj") {
+  } elseif ($CBOX3 -like "*Adj") {
     $FULLTYPE = "Adj"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Pron") {
+  } elseif ($CBOX3 -like "*Pron") {
     $FULLTYPE = "Pron"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Verbs") {
+  } elseif ($CBOX3 -like "*Verbs") {
     $FULLTYPE = "Verbs"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Adverbs") {
+  } elseif ($CBOX3 -like "*Adverbs") {
     $FULLTYPE = "Adv"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Sents") {
+  } elseif ($CBOX3 -like "*Sents") {
     $FULLTYPE = "Sent"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Vocab") {
+  } elseif ($CBOX3 -like "*Vocab") {
     $FULLTYPE = "Voc"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Cap") {
+  } elseif ($CBOX3 -like "*Cap") {
     $FULLTYPE = "Cap"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Abbrev") {
+  } elseif ($CBOX3 -like "*Abbrev") {
     $FULLTYPE = "Abbrev"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Punct") {
+  } elseif ($CBOX3 -like "*Punct") {
     $FULLTYPE = "Punct"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Usage") {
+  } elseif ($CBOX3 -like "*Usage") {
     $FULLTYPE = "Usage"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Vocab") {
+  } elseif ($CBOX3 -like "*Vocab") {
     $FULLTYPE = "Voc"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Sent Ed") {
+  } elseif ($CBOX3 -like "*Sent Ed") {
     $FULLTYPE = "Sent Ed"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*Para Ed") {
+  } elseif ($CBOX3 -like "*Para Ed") {
     $FULLTYPE = "Para Ed"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*C&C") {
+  } elseif ($CBOX3 -like "*C&C") {
     $FULLTYPE = "C&C"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*DCMI") {
+  } elseif ($CBOX3 -like "*DCMI") {
     $FULLTYPE = "DCMI"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*MP") {
+  } elseif ($CBOX3 -like "*MP") {
     $FULLTYPE = "MP"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*C&E") {
+  } elseif ($CBOX3 -like "*C&E") {
     $FULLTYPE = "C&E"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*MID") {
+  } elseif ($CBOX3 -like "*MID") {
     $FULLTYPE = "MID"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*SEQ") {
+  } elseif ($CBOX3 -like "*SEQ") {
     $FULLTYPE = "SEQ"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*BNS") {
+  } elseif ($CBOX3 -like "*BNS") {
     $FULLTYPE = "BNS"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*DPA") {
+  } elseif ($CBOX3 -like "*DPA") {
     $FULLTYPE = "DPA"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*IGC") {
+  } elseif ($CBOX3 -like "*IGC") {
     $FULLTYPE = "IGC"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*UA") {
+  } elseif ($CBOX3 -like "*UA") {
     $FULLTYPE = "UA"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*UE") {
+  } elseif ($CBOX3 -like "*UE") {
     $FULLTYPE = "UE"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*UG") {
+  } elseif ($CBOX3 -like "*UG") {
     $FULLTYPE = "UG"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L10") {
+  } elseif ($CBOX3 -like "*L10") {
     $FULLTYPE = "Lesson 10"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L11") {
+  } elseif ($CBOX3 -like "*L11") {
     $FULLTYPE = "Lesson 11"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L12") {
+  } elseif ($CBOX3 -like "*L12") {
     $FULLTYPE = "Lesson 12"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L1") {
+  } elseif ($CBOX3 -like "*L1") {
     $FULLTYPE = "Lesson 1"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L2") {
+  } elseif ($CBOX3 -like "*L2") {
     $FULLTYPE = "Lesson 2"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L3") {
+  } elseif ($CBOX3 -like "*L3") {
     $FULLTYPE = "Lesson 3"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L4") {
+  } elseif ($CBOX3 -like "*L4") {
     $FULLTYPE = "Lesson 4"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L5") {
+  } elseif ($CBOX3 -like "*L5") {
     $FULLTYPE = "Lesson 5"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L6") {
+  } elseif ($CBOX3 -like "*L6") {
     $FULLTYPE = "Lesson 6"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L7") {
+  } elseif ($CBOX3 -like "*L7") {
     $FULLTYPE = "Lesson 7"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L8") {
+  } elseif ($CBOX3 -like "*L8") {
     $FULLTYPE = "Lesson 8"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L9") {
+  } elseif ($CBOX3 -like "*L9") {
     $FULLTYPE = "Lesson 9"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R1-2") {
+  } elseif ($CBOX3 -like "*R1-2") {
     $FULLTYPE = "Review 1-2"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R3-4") {
+  } elseif ($CBOX3 -like "*R3-4") {
     $FULLTYPE = "Review 3-4"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R5-6") {
+  } elseif ($CBOX3 -like "*R5-6") {
     $FULLTYPE = "Review 5-6"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R7-8") {
+  } elseif ($CBOX3 -like "*R7-8") {
     $FULLTYPE = "Review 7-8"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R1-3") {
+  } elseif ($CBOX3 -like "*R1-3") {
     $FULLTYPE = "Review 1-3"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R4-6") {
+  } elseif ($CBOX3 -like "*R4-6") {
     $FULLTYPE = "Review 4-6"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R7-9") {
+  } elseif ($CBOX3 -like "*R7-9") {
     $FULLTYPE = "Review 7-9"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R10-12") {
+  } elseif ($CBOX3 -like "*R10-12") {
     $FULLTYPE = "Review 10-12"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*FR6") {
+  } elseif ($CBOX3 -like "*FR6") {
     $FULLTYPE = "Final Review 1-6"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*FR8") {
+  } elseif ($CBOX3 -like "*FR8") {
     $FULLTYPE = "Final Review 1-8"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*FR12") {
+  } elseif ($CBOX3 -like "*FR12") {
     $FULLTYPE = "Final Review 1-12"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L1-4") {
+  } elseif ($CBOX3 -like "*L1-4") {
     $FULLTYPE = "Lessons 1-4"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L5-8") {
+  } elseif ($CBOX3 -like "*L5-8") {
     $FULLTYPE = "Lessons 5-8"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*R9-12") {
+  } elseif ($CBOX3 -like "*R9-12") {
     $FULLTYPE = "Lessons 9-12"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L1-3") {
+  } elseif ($CBOX3 -like "*L1-3") {
     $FULLTYPE = "Lessons 1-3"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L4-6") {
+  } elseif ($CBOX3 -like "*L4-6") {
     $FULLTYPE = "Lessons 4-6"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L7-9") {
+  } elseif ($CBOX3 -like "*L7-9") {
     $FULLTYPE = "Lessons 7-9"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L1-5") {
+  } elseif ($CBOX3 -like "*L1-5") {
     $FULLTYPE = "Lessons 1-5"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L6-10") {
+  } elseif ($CBOX3 -like "*L6-10") {
     $FULLTYPE = "Lessons 6-10"
-  }elseif($comboBox3.SelectedItem.ToString() -like "*L11-15") {
+  } elseif ($CBOX3 -like "*L11-15") {
     $FULLTYPE = "Lessons 11-15"
   }else {
-    $FULLTYPE = $comboBox3.SelectedItem.ToString()
+    $FULLTYPE = $CBOX3
   }
 
 #building the worksheet filepath by worksheet type
-  if($comboBox1.SelectedItem.ToString() -like "*ccssm") {
-    $DIRECTORY = $STAFFPATH + $CCSSMATH + $comboBox2.SelectedItem.ToString() + $CCSS + $comboBox2.SelectedItem.ToString() + "M - SB\"
-    $FILE      = "CCSS " + $comboBox2.SelectedItem.ToString() + $CCML + $comboBox3.SelectedItem.ToString() + " SB.pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*sm") {
+  if($CBOX1 -like "*ccssm") {
+    $DIRECTORY = $STAFFPATH + $CCSSMATH + $CBOX2 + $CCSS + $CBOX2 + "M - SB\"
+    $FILE      = "CCSS " + $CBOX2 + $CCML + $CBOX3 + " SB.pdf"
+  } elseif ($CBOX1 -like "*sm") {
     #Regular SM Levels are 1A to 6B. 7A-8B are special and are all in their own directories
     #File paths missing...
-    if($comboBox2.SelectedItem.ToString() -like "*7A") {
+    if($CBOX2 -like "*7A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7A (eVer - STAMPED)\"
 
-    }elseif($comboBox2.SelectedItem.ToString() -like "*7B") {
+    } elseif ($CBOX2 -like "*7B") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7B (eVer - STAMPED)\"
 
-    }elseif($comboBox2.SelectedItem.ToString() -like "*8A") {
+    } elseif ($CBOX2 -like "*8A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\TB 8A (eVer - STAMPED)\"
 
-    }elseif($comboBox2.SelectedItem.ToString() -like "*8B") {
+    } elseif ($CBOX2 -like "*8B") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\TB 8B (eVer - STAMPED)\" 
 
     } else {
-      $DIRECTORY = $STAFFPATH + $SM + $comboBox2.SelectedItem.ToString() + "\"
-      $FILE      = $comboBox2.SelectedItem.ToString() + " Unit " + $comboBox3.SelectedItem.ToString() + " (STAMPED).pdf"
+      $DIRECTORY = $STAFFPATH + $SM + $CBOX2 + "\"
+      $FILE      = $CBOX2 + " Unit " + $CBOX3 + " (STAMPED).pdf"
     }
-  }elseif($comboBox1.SelectedItem.ToString() -like "*fm") {
-    $DIRECTORY = $STAFFPATH + $FM + $comboBox2.SelectedItem.ToString() + "\"
-    $FILE      = "FM-" + $comboBox2.SelectedItem.ToString() + "-" + $comboBox3.SelectedItem.ToString() + ".pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*stams") {
+  } elseif ($CBOX1 -like "*fm") {
+    $DIRECTORY = $STAFFPATH + $FM + $CBOX2 + "\"
+    $FILE      = "FM-" + $CBOX2 + "-" + $CBOX3 + ".pdf"
+  } elseif ($CBOX1 -like "*stams") {
     $DIRECTORY = $STAFFPATH + $STAMS
-    $FILE      = "STAMS- " + $comboBox2.SelectedItem.ToString() + " (Water Marked).pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*ccssr") {
-    $DIRECTORY = $STAFFPATH + $CCSSELA + $comboBox2.SelectedItem.ToString() + $CCSS + $comboBox2.SelectedItem.ToString() + "R - SB\"
-    $FILE      = "CCSS " + $comboBox2.SelectedItem.ToString() + $CCRL + $comboBox3.SelectedItem.ToString() + " SB.pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*lf") {
-    $DIRECTORY = $STAFFPATH + $LF + $comboBox2.SelectedItem.ToString() + $LF2 
-    $FILE      = "LF" + $comboBox2.SelectedItem.ToString() + " (*) " + $FULLTYPE + ".pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*vf") {
-    $DIRECTORY = $STAFFPATH + $VF + $comboBox2.SelectedItem.ToString() + "\"
-    $FILE      = $VF2 + $comboBox2.SelectedItem.ToString() + " - (*) " + $FULLTYPE + " - Unit " + $VFUNIT + "*.pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*ph") {
-    $DIRECTORY = $STAFFPATH + $PH + $comboBox2.SelectedItem.ToString() + $PH2 + "PH" + $comboBox2.SelectedItem.ToString() + $PH3
-    $FILE      = "Phonics " + $comboBox2.SelectedItem.ToString() + " - Lesson " + $comboBox3.SelectedItem.ToString() + ".pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*fr") {
-    $DIRECTORY = $STAFFPATH + $FR + $comboBox2.SelectedItem.ToString() + "\"
-    $FILE      = "FR " + $comboBox2.SelectedItem.ToString() + " - " + $comboBox3.SelectedItem.ToString() + ".pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*sv") {
+    $FILE      = "STAMS- " + $CBOX2 + " (Water Marked).pdf"
+  } elseif ($CBOX1 -like "*ccssr") {
+    $DIRECTORY = $STAFFPATH + $CCSSELA + $CBOX2 + $CCSS + $CBOX2 + "R - SB\"
+    $FILE      = "CCSS " + $CBOX2 + $CCRL + $CBOX3 + " SB.pdf"
+  } elseif ($CBOX1 -like "*lf") {
+    $DIRECTORY = $STAFFPATH + $LF + $CBOX2 + $LF2 
+    $FILE      = "LF" + $CBOX2 + " (*) " + $FULLTYPE + ".pdf"
+  } elseif ($CBOX1 -like "*vf") {
+    $DIRECTORY = $STAFFPATH + $VF + $CBOX2 + "\"
+    $FILE      = $VF2 + $CBOX2 + " - (*) " + $FULLTYPE + " - Unit " + $VFUNIT + "*.pdf"
+  } elseif ($CBOX1 -like "*ph") {
+    $DIRECTORY = $STAFFPATH + $PH + $CBOX2 + $PH2 + "PH" + $CBOX2 + $PH3
+    $FILE      = "Phonics " + $CBOX2 + " - Lesson " + $CBOX3 + ".pdf"
+  } elseif ($CBOX1 -like "*fr") {
+    $DIRECTORY = $STAFFPATH + $FR + $CBOX2 + "\"
+    $FILE      = "FR " + $CBOX2 + " - " + $CBOX3 + ".pdf"
+  } elseif ($CBOX1 -like "*sv") {
     $DIRECTORY = $STAFFPATH + $SV
-    $FILE      = $SV2 + $comboBox2.SelectedItem.ToString() + " " + $FULLTYPE + ".pdf"
-  }elseif($comboBox1.SelectedItem.ToString() -like "*stars") {
-    $DIRECTORY = $STAFFPATH + $STARS + $comboBox2.SelectedItem.ToString() + "\"
-    $FILE      = "STARS " + $comboBox2.SelectedItem.ToString() + " - " + $FULLTYPE + ".pdf"
+    $FILE      = $SV2 + $CBOX2 + " " + $FULLTYPE + ".pdf"
+  } elseif ($CBOX1 -like "*stars") {
+    $DIRECTORY = $STAFFPATH + $STARS + $CBOX2 + "\"
+    $FILE      = "STARS " + $CBOX2 + " - " + $FULLTYPE + ".pdf"
   }
 
   #If the script was supposed to find a pdf (every case except SMTB 7A-8B), print or open those files
@@ -533,7 +537,6 @@ function Find-File{
     #Open the directory where it should be and let the worker manually navigate to it
     ii $DIRECTORY
   }
-
   #Print out what was looked for, whether it exists or not.
   Write-Host $DIRECTORY
   Write-Host $FILE
@@ -545,6 +548,56 @@ $button1.add_Click({
 
 $button2.add_Click({
   Find-File $true
+})
+
+$button3.add_Click({
+  $start2 = $comboBox2.SelectedIndex
+  $start3 = $comboBox3.SelectedIndex
+  $end2   = $comboBox4.SelectedIndex
+  $end3   = $comboBox5.SelectedIndex
+  if($start2 -gt $end2) {
+    return
+  }
+  
+  for($i=0; $i -lt $comboBox2.Items.Count; $i++) {
+    for($j=0; $j -lt $comboBox3.Items.Count; $j++) {
+      if(($end2 -eq $i -and $end3 -lt $j) -or ($end2 -lt $i) ) {
+        return
+      }
+      if(($start2 -eq $i -and $start3 -le $j) -or ($start2 -lt $i) ) {
+        $comboBox2.SelectedIndex = $i
+        $comboBox3.SelectedIndex = $j
+        Find-File $false
+      }
+    }
+  }
+  $comboBox2.SelectedIndex = $start2
+  $comboBox3.SelectedIndex = $start3
+})
+
+$button4.add_Click({
+  $start2 = $comboBox2.SelectedIndex
+  $start3 = $comboBox3.SelectedIndex
+  $end2   = $comboBox4.SelectedIndex
+  $end3   = $comboBox5.SelectedIndex
+  if($start2 -gt $end2) {
+    return
+  }
+  
+  for($i=0; $i -lt $comboBox2.Items.Count; $i++) {
+    for($j=0; $j -lt $comboBox3.Items.Count; $j++) {
+      if(($end2 -eq $i -and $end3 -lt $j) -or ($end2 -lt $i) ) {
+        return
+      }
+      if(($start2 -eq $i -and $start3 -le $j) -or ($start2 -lt $i) ) {
+        $comboBox2.SelectedIndex = $i
+        $comboBox3.SelectedIndex = $j
+        Find-File $true
+      }
+    }
+  }
+  $comboBox2.SelectedIndex = $start2
+  $comboBox3.SelectedIndex = $start3
 })
 
 #Launch the window
