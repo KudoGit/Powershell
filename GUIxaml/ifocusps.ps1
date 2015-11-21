@@ -676,7 +676,7 @@ function Find-Range {
       if(($end2 -eq $i -and $end3 -lt $j) -or ($end2 -lt $i) ) {
         break
       }
-      if($VF) {
+      if($ISVF) {
         for($k=0; $k -lt $comboBox6.Items.Count; $k++) {
           if(($end2 -eq $i -and $end3 -eq $j -and $end6 -lt $k) -or ($end3 -lt $j)) {
             break
