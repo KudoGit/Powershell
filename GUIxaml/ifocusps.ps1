@@ -38,6 +38,8 @@ $SV2         = "SV "
 $STAMS       = "Math\STAMS\Water Marked\"
 $STARS       = "ELA\STARS\Grayscale\Water Marked\STARS "
 
+$comboBox1.SelectedIndex = 0
+
 function Array-Num {
   param($Array)
   for($i=0; $i -lt $Array.length; $i++) {
@@ -84,8 +86,16 @@ $gradef      = 1, 2, 3, 4, 5, 6
 $gradecc     = 'K', 1, 2, 3, 4, 5, 6, 7, 8
 $gradec      = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
 $gradesm     = "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
-$VFT         = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF", "PL", "SUF", "ROOT", "IDI", "BLEN", "CLIP", "WP", "HET"
-$LFT         = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Sent Ed", "Para Ed"
+
+#Note: Unused: "WP"- Word Play
+$VF1         = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
+$VF2         = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF"
+$VF3         = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF", "ROOT", "IDI"
+$VF456       = "CW", "SYN", "PL", "ANT", "HP", "HG", "HET", "PREF", "SUF", "ROOT", "IDI", "BLEN", "CLIP"
+
+$LF123       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Sent Ed"
+$LF456       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Prep", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Para Ed"
+
 $FRT         = "C&C", "DCMI", "MP", "C&E", "MID", "SEQ"
 $FMT         = "BNS", "DPA", "IGC", "UA", "UE", "UG"
 
@@ -115,7 +125,9 @@ function Grade-Select{
     $Grade = $GradeBox.SelectedItem.ToString()
   } catch [system.exception] {
     return
-  } finally {}
+  } finally {
+    #do nothing
+  }
   if ($Subject -like "*CCSSM") {
     $TypeBox.Items.Clear()
     if($Grade -like "*1") {
@@ -173,11 +185,32 @@ function Grade-Select{
     } else {
       Box-Change $TypeBox $STARS12
     }
+  } elseif ($Subject -like "*LF") {
+    $TypeBox.Items.Clear()
+    if(($Grade -like "*1") -or ($Grade -like "*2") -or ($Grade -like "*3")) {
+      Box-Change $TypeBox $LF123
+    } else {
+      Box-Change $TypeBox $LF456
+    }
+  } elseif ($Subject -like "*VF") {
+    $TypeBox.Items.Clear()
+    if($Grade -like "*1") {
+      Box-Change $TypeBox $VF1
+    } elseif ($Grade -like "*2") {
+      Box-Change $TypeBox $VF2
+    } elseif ($Grade -like "*3") {
+      Box-Change $TypeBox $VF3
+    } else {
+      Box-Change $Typebox $VF456
+    }
   }
 }
 
 $comboBox2.add_SelectionChanged({
   Grade-Select $comboBox2 $comboBox3
+  if($comboBox2.SelectedIndex -gt $comboBox4.SelectedIndex) {
+    $comboBox4.SelectedIndex = $comboBox2.SelectedIndex
+  }
 })
 
 $comboBox4.add_SelectionChanged({
@@ -189,57 +222,54 @@ $comboBox1.add_SelectionChanged({
   $comboBox3.Items.Clear()
   $comboBox4.Items.Clear()
   $comboBox5.Items.Clear()
-  if($comboBox1.SelectedItem.ToString() -like "*CCSSM") {
+  $Subject = $comboBox1.SelectedItem.ToString()
+  if($Subject -like "*CCSSM") {
     Box-Change $comboBox2 $gradecc
     Box-Change $comboBox4 $gradecc
     $textBlock4.Text = "CCSSM"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*CCSSR") {
+  } elseif ($Subject -like "*CCSSR") {
     Box-Change $comboBox2 $gradecc
     Box-Change $comboBox4 $gradecc
     $textBlock4.Text = "CCSSR"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*SM") {
+  } elseif ($Subject -like "*SM") {
     Box-Change $comboBox2 $gradesm
     Box-Change $comboBox4 $gradesm
     $textBlock4.Text = "SM"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*LF") {
+  } elseif ($Subject -like "*LF") {
     Box-Change $comboBox2 $gradef
     Box-Change $comboBox4 $gradef
-    Box-Change $comboBox3 $LFT
-    Box-Change $comboBox5 $LFT
     $textBlock4.Text = "LF"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*VF") {
+  } elseif ($Subject -like "*VF") {
     Box-Change $comboBox2 $gradef
     Box-Change $comboBox4 $gradef
-    Box-Change $comboBox3 $VFT
-    Box-Change $comboBox5 $VFT
     $textBlock4.Text = "VF"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*PH") {
+  } elseif ($Subject -like "*PH") {
     Box-Change $comboBox2 $gradep
     Box-Change $comboBox4 $gradep
     $textBlock4.Text = "PH"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*FR") {
+  } elseif ($Subject -like "*FR") {
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     Box-Change $comboBox3 $FRT
     Box-Change $comboBox5 $FRT
     $textBlock4.Text = "FR"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*FM") {
+  } elseif ($Subject -like "*FM") {
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     Box-Change $comboBox3 $FMT
     Box-Change $comboBox5 $FMT
     $textBlock4.Text = "FM"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*SV") {
+  } elseif ($Subject -like "*SV") {
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     $textBlock4.Text = "SV"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*STARS") {
+  } elseif ($Subject -like "*STARS") {
     $comboBox2.Items.add("AA")
     $comboBox4.Items.add("AA")
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     $textBlock4.Text = "STARS"
-  } elseif ($comboBox1.SelectedItem.ToString() -like "*STAMS") {
+  } elseif ($Subject -like "*STAMS") {
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     $textBlock4.Text = "STAMS"
@@ -253,14 +283,25 @@ function Find-File{
 
   $FULLTYPE = $null
 
+  $LFNUM  = $comboBox2.SelectedIndex+1
   $VFUNIT = $null
 
   $CBOX1 = $comboBox1.SelectedItem.ToString()
   $CBOX2 = $comboBox2.SelectedItem.ToString()
-  $CBOX3 = $comboBox3.SelectedItem.ToString()
+  $CBOX3 = $null
+  $NullBox3  = $false
+  try {
+    $CBOX3 = $comboBox3.SelectedItem.ToString()
+  } catch [system.exception] {
+    $NullBox3 = $true
+  } finally {
+    #do nothing
+  }
   
 #Converts user inputted shorthand into the actual filename counterparts
-  if($CBOX3 -like "*RW") {
+  if($NullBox3) {
+    Write-Host "NullBox3"
+  } elseif($CBOX3 -like "*RW") {
     $FULLTYPE = "Rhyming Words"
   } elseif ($CBOX3 -like "*CW") {
     $FULLTYPE = "Compound Words"
@@ -446,7 +487,7 @@ function Find-File{
     $FILE      = "CCSS " + $CBOX2 + $CCRL + $CBOX3 + " SB.pdf"
   } elseif ($CBOX1 -like "*lf") {
     $DIRECTORY = $STAFFPATH + $LF + $CBOX2 + $LF2 
-    $FILE      = "LF" + $CBOX2 + " (*) " + $FULLTYPE + ".pdf"
+    $FILE      = "LF" + $CBOX2 + " (" + $LFNUM +") " + $FULLTYPE + ".pdf"
   } elseif ($CBOX1 -like "*vf") {
     $DIRECTORY = $STAFFPATH + $VF + $CBOX2 + "\"
     $FILE      = $VF2 + $CBOX2 + " - (*) " + $FULLTYPE + " - Unit " + $VFUNIT + "*.pdf"
