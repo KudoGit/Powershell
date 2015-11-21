@@ -88,10 +88,18 @@ $gradec      = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
 $gradesm     = "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
 
 #Note: Unused: "WP"- Word Play
-$VF1         = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
-$VF2         = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF"
-$VF3         = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF", "ROOT", "IDI"
-$VF456       = "CW", "SYN", "PL", "ANT", "HP", "HG", "HET", "PREF", "SUF", "ROOT", "IDI", "BLEN", "CLIP"
+$VFT1        = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
+$VFT2        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF"
+$VFT3        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF", "ROOT", "IDI"
+$VFT456      = "CW", "SYN", "PL", "ANT", "HP", "HG", "HET", "PREF", "SUF", "ROOT", "IDI", "BLEN", "CLIP"
+
+$VFU2        = 1, 2
+$VFU3        = 1, 2, 3
+$VFU4        = 1, 2, 3, 4
+$VFU5        = 1, 2, 3, 4, 5
+$VFU6        = 1, 2, 3, 4, 5, 6
+$VFU7        = 1, 2, 3, 4, 5, 6, 7
+$VFU10       = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 
 $LF123       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Sent Ed"
 $LF456       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Prep", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Para Ed"
@@ -116,12 +124,12 @@ function Box-Change {
   $ComboBoxNum.SelectedIndex = 0
 }
 
+
 function Grade-Select{
   param($GradeBox, $TypeBox)
-  $Subject = $null
+  $Subject = $comboBox1.SelectedItem.ToString()
   $Grade = $null
   try {
-    $Subject = $comboBox1.SelectedItem.ToString()
     $Grade = $GradeBox.SelectedItem.ToString()
   } catch [system.exception] {
     return
@@ -195,13 +203,13 @@ function Grade-Select{
   } elseif ($Subject -like "*VF") {
     $TypeBox.Items.Clear()
     if($Grade -like "*1") {
-      Box-Change $TypeBox $VF1
+      Box-Change $TypeBox $VFT1
     } elseif ($Grade -like "*2") {
-      Box-Change $TypeBox $VF2
+      Box-Change $TypeBox $VFT2
     } elseif ($Grade -like "*3") {
-      Box-Change $TypeBox $VF3
+      Box-Change $TypeBox $VFT3
     } else {
-      Box-Change $Typebox $VF456
+      Box-Change $Typebox $VFT456
     }
   }
 }
@@ -215,6 +223,116 @@ $comboBox2.add_SelectionChanged({
 
 $comboBox4.add_SelectionChanged({
   Grade-Select $comboBox4 $comboBox5
+})
+
+function Type-Select{
+  param($GradeBox, $TypeBox, $UnitBox)
+  $Subject = $comboBox1.SelectedItem.ToString()
+  $Grade = $null
+  $Type = $null
+  try {
+    $Grade = $GradeBox.SelectedItem.ToString()
+    $Type  = $TypeBox.SelectedItem.ToString()
+  } catch [system.exception] {
+    return
+  } finally {
+    #do nothing
+  }
+  if($Subject -notlike "*VF") {
+    return
+  }
+  $UnitBox.Items.Clear()
+  if($Type -like "*RW") {
+    Box-Change $UnitBox $VFU7
+  } elseif ($Type -like "*CW") {
+    if($Grade -like "*1") {
+      Box-Change $UnitBox $VFU6
+    } else {
+      Box-Change $UnitBox $VFU3
+    }
+  } elseif ($Type -like "*CONT") {
+    Box-Change $UnitBox $VFU3
+  } elseif ($Type -like "*SYN") {
+    if($Grade -like "*1") {
+      Box-Change $UnitBox $VFU6
+    } elseif ($Grade -like "*2") {
+      Box-Change $UnitBox $VFU7
+    } elseif($Grade -like "*3" -or $Grade -like "*4") {
+      Box-Change $UnitBox $VFU3
+    } else {
+      Box-Change $UnitBox $VFU2
+    }
+  } elseif ($Type -like "*PL") {
+    if($Grade -like "*3") {
+      Box-Change $UnitBox $VFU10
+    } else {
+      Box-Change $UnitBox $VFU6
+    }
+  } elseif ($Type -like "*ANT") {
+    if($Grade -like "*1") {
+      Box-Change $UnitBox $VFU7
+    } elseif ($Grade -like "*2") {
+      Box-Change $UnitBox $VFU5
+    } elseif($Grade -like "*3") {
+      Box-Change $UnitBox $VFU3
+    } else {
+      Box-Change $UnitBox $VFU2
+    }
+  } elseif ($Type -like "*HP") {
+    if($Grade -like "*1") {
+      Box-Change $UnitBox $VFU7
+    } elseif ($Grade -like "*2") {
+      Box-Change $UnitBox $VFU6
+    } else {
+      Box-Change $UnitBox $VFU3
+    }
+  } elseif ($Type -like "*HG") {
+    if($Grade -like "*1" -or $Grade -like "*2" -or $Grade -like "*3") {
+      Box-Change $UnitBox $VFU4
+    } else {
+      Box-Change $UnitBox $VFU3
+    }
+  } elseif ($Type -like "*HET") {
+    $UnitBox.Items.add(1)
+  } elseif ($Type -like "*PREF") {
+    if($Grade -like "*1") {
+      Box-Change $UnitBox $VFU2
+    } elseif ($Grade -like "*2") {
+      Box-Change $UnitBox $VFU7
+    } elseif($Grade -like "*3") {
+      Box-Change $UnitBox $VFU5
+    } else {
+      Box-Change $UnitBox $VFU6
+    }
+  } elseif ($Type -like "*SUF") {
+    if($Grade -like "*2" -or $Grade -like "*3") {
+      Box-Change $UnitBox $VFU4
+    } else {
+      Box-Change $UnitBox $VFU6
+    }
+  } elseif ($Type -like "*ROOT") {
+    if($Grade -like "*3" -or $Grade -like "*4") {
+      Box-Change $UnitBox $VFU4
+    } else {
+      Box-Change $UnitBox $VFU5
+    }
+  } elseif ($Type -like "*IDI") {
+    Box-Change $UnitBox $VFU3
+  } elseif ($Type -like "*BLEN") {
+    $UnitBox.Items.add(1)
+  } elseif ($Type -like "*CLIP") {
+    $UnitBox.Items.add(1)
+  } elseif ($Type -like "*WP") {
+    $UnitBox.Items.add(1)
+  }
+}
+
+$comboBox3.add_SelectionChanged({
+  Type-Select $comboBox2 $comboBox3 $comboBox6
+})
+
+$comboBox5.add_SelectionChanged({
+  Type-Select $comboBox4 $comboBox5 $comboBox7
 })
 
 $comboBox1.add_SelectionChanged({
@@ -291,7 +409,8 @@ function Find-File{
   $CBOX3 = $null
   $NullBox3  = $false
   try {
-    $CBOX3 = $comboBox3.SelectedItem.ToString()
+    $CBOX3  = $comboBox3.SelectedItem.ToString()
+    $VFUNIT = $comboBox6.SelectedItem.ToString()
   } catch [system.exception] {
     $NullBox3 = $true
   } finally {
@@ -543,14 +662,33 @@ function Find-Range {
   param($print)
   $start2 = $comboBox2.SelectedIndex
   $start3 = $comboBox3.SelectedIndex
+  $start6 = $comboBox6.SelectedIndex
   $end2   = $comboBox4.SelectedIndex
   $end3   = $comboBox5.SelectedIndex
+  $end6   = $comboBox7.SelectedIndex
+  
+  $ISVF   = ($comboBox1.SelectedItem.ToString() -like "*VF")
   for($i=0; $i -lt $comboBox2.Items.Count; $i++) {
+    if($end2 -lt $i) {
+      break
+    }
     for($j=0; $j -lt $comboBox3.Items.Count; $j++) {
       if(($end2 -eq $i -and $end3 -lt $j) -or ($end2 -lt $i) ) {
         break
       }
-      if(($start2 -eq $i -and $start3 -le $j) -or ($start2 -lt $i) ) {
+      if($VF) {
+        for($k=0; $k -lt $comboBox6.Items.Count; $k++) {
+          if(($end2 -eq $i -and $end3 -eq $j -and $end6 -lt $k) -or ($end3 -lt $j)) {
+            break
+          }
+          if(($start2 -eq $i -and $start3 -eq $j -and $start6 -le $k) -or ($start2 -le $i -and $start3 -lt $j)) {
+            $comboBox2.SelectedIndex = $i
+            $comboBox3.SelectedIndex = $j
+            $comboBox6.SelectedIndex = $k
+            Find-File $print
+          }
+        }
+      } elseif(($start2 -eq $i -and $start3 -le $j) -or ($start2 -lt $i) ) {
         $comboBox2.SelectedIndex = $i
         $comboBox3.SelectedIndex = $j
         Find-File $print
@@ -559,6 +697,7 @@ function Find-Range {
   }
   $comboBox2.SelectedIndex = $start2
   $comboBox3.SelectedIndex = $start3
+  $comboBox6.SelectedIndex = $start6
 }
 
 $button3.add_Click({

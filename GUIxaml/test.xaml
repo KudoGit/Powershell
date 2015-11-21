@@ -64,5 +64,9 @@
         <TextBlock Name="textBlock4" HorizontalAlignment="Left" Margin="60,173,0,0" VerticalAlignment="Top" TextWrapping="Wrap" Text="CCSSM"/>
         <ComboBox Name="comboBox4" HorizontalAlignment="Left" Margin="146,173,0,0" VerticalAlignment="Top" Width="50"/>
         <ComboBox Name="comboBox5" HorizontalAlignment="Left" Margin="215,173,0,0" VerticalAlignment="Top" Width="60"/>
+        
+        <ComboBox Name="comboBox6" HorizontalAlignment="Left" Margin="315,85,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.597,-1.193"/>
+        <ComboBox Name="comboBox7" HorizontalAlignment="Left" Margin="315,173,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.597,-1.193"/>
+        <TextBlock Name="textBlock5" HorizontalAlignment="Left" Margin="315,46,0,0" TextWrapping="Wrap" Text="Unit (VF Only)" VerticalAlignment="Top"/>
     </Grid>
 </Window>
