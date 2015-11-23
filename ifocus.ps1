@@ -38,8 +38,6 @@ $SV2         = "SV "
 $STAMS       = "Math\STAMS\Water Marked\"
 $STARS       = "ELA\STARS\Grayscale\Water Marked\STARS "
 
-$comboBox1.SelectedIndex = 0
-
 $gradec      = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
 $gradesm     = "KM-A", "KM-B", "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
 
@@ -81,7 +79,7 @@ function Box-Num {
 }
 
 function Grade-Select{
-  param($GradeBox, $TypeBox)
+  param($GradeBox, $TypeBox, $UnitBox)
   $Subject = $comboBox1.SelectedItem.ToString()
   $Grade = $null
   try {
@@ -91,8 +89,14 @@ function Grade-Select{
   } finally {
     #do nothing
   }
+  
+  $UnitBox.Items.Clear()
+  if ($Subject -like "*FM" -or $Subject -like "*FR") {
+    return
+  }
+
+  $TypeBox.Items.Clear()
   if ($Subject -like "*CCSSM") {
-    $TypeBox.Items.Clear()
     if($Grade -like "*1") {
       Box-Num $TypeBox 1 35
     } elseif ($Grade -like "*2") {
@@ -107,7 +111,6 @@ function Grade-Select{
       Box-Num $TypeBox 1 33
     }
   } elseif ($Subject -like "*SM") {
-    $TypeBox.Items.Clear()
     if($Grade -like "*KM-A") {
       Box-Num $TypeBox 1 8
     } elseif ($Grade -like "*KM-B") {
@@ -137,7 +140,6 @@ function Grade-Select{
       Box-Num $TypeBox 1 5
     }
   } elseif ($Subject -like "*CCSSR") {
-    $TypeBox.Items.Clear()
     if($Grade -like "*K") {
       Box-Num $TypeBox 1 18
     } elseif ($Grade -like "*4") {
@@ -152,7 +154,6 @@ function Grade-Select{
       Box-Num $TypeBox 1 22
     }
   } elseif ($Subject -like "*PH") {
-    $TypeBox.Items.Clear()
     if($Grade -like "*1") {
       Box-Num $TypeBox 1 30
     } elseif ($Grade -like "*2") {
@@ -161,7 +162,6 @@ function Grade-Select{
       Box-Num $TypeBox 1 36
     }
   } elseif ($Subject -like "*SV") {
-    $TypeBox.Items.Clear()
     if($Grade -like "*A") {
       Box-Change $TypeBox $SV9
     } elseif ($Grade -like "*B") {
@@ -170,7 +170,6 @@ function Grade-Select{
       Box-Change $TypeBox $SV15
     }
   } elseif ($Subject -like "*STARS") {
-    $TypeBox.Items.Clear()
     if(($Grade -like "*AA") -or ($Grade -like "*K")) {
       Box-Change $TypeBox $STARS6
     } elseif ($Grade -like "*A") {
@@ -179,14 +178,12 @@ function Grade-Select{
       Box-Change $TypeBox $STARS12
     }
   } elseif ($Subject -like "*LF") {
-    $TypeBox.Items.Clear()
     if(($Grade -like "*1") -or ($Grade -like "*2") -or ($Grade -like "*3")) {
       Box-Change $TypeBox $LF123
     } else {
       Box-Change $TypeBox $LF456
     }
   } elseif ($Subject -like "*VF") {
-    $TypeBox.Items.Clear()
     if($Grade -like "*1") {
       Box-Change $TypeBox $VFT1
     } elseif ($Grade -like "*2") {
@@ -200,14 +197,14 @@ function Grade-Select{
 }
 
 $comboBox2.add_SelectionChanged({
-  Grade-Select $comboBox2 $comboBox3
+  Grade-Select $comboBox2 $comboBox3 $comboBox6
   if($comboBox2.SelectedIndex -gt $comboBox4.SelectedIndex) {
     $comboBox4.SelectedIndex = $comboBox2.SelectedIndex
   }
 })
 
 $comboBox4.add_SelectionChanged({
-  Grade-Select $comboBox4 $comboBox5
+  Grade-Select $comboBox4 $comboBox5 $comboBox7
 })
 
 function Type-Select{
@@ -314,12 +311,27 @@ function Type-Select{
 
 $comboBox3.add_SelectionChanged({
   Type-Select $comboBox2 $comboBox3 $comboBox6
+  if($comboBox2.SelectedIndex -eq $comboBox4.SelectedIndex) {
+    if($comboBox3.SelectedIndex -gt $comboBox5.SelectedIndex) {
+      $comboBox5.SelectedIndex = $comboBox3.SelectedIndex
+    }
+  }
 })
 
 $comboBox5.add_SelectionChanged({
   Type-Select $comboBox4 $comboBox5 $comboBox7
 })
 
+$comboBox6.add_SelectionChanged({
+  if($comboBox2.SelectedIndex -eq $comboBox4.SelectedIndex) {
+    if($comboBox3.SelectedIndex -eq $comboBox5.SelectedIndex) {
+      if($comboBox6.SelectedIndex -gt $comboBox7.SelectedIndex) {
+        $comboBox7.SelectedIndex = $comboBox6.SelectedIndex
+      }
+    }
+  }
+})
+  
 $comboBox1.add_SelectionChanged({
   $comboBox2.Items.Clear()
   $comboBox3.Items.Clear()
@@ -700,6 +712,8 @@ $button3.add_Click({
 $button4.add_Click({
   Find-Range $true
 })
+
+$comboBox1.SelectedIndex = 0
 
 #Launch the window
 $xamGUI.ShowDialog() | out-null
