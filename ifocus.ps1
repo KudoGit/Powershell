@@ -10,7 +10,7 @@ $CCSS        = "\CCSS "
 $CCSSMATH    = "Math\CCSS Math\New_CC_8-25-2015-01-22 (eVER) STAMPED\Math\Gr."          
 $CCML        = "M Lesson "
 
-$SM          = "Math\SM\Text Books and Work Books (PRINT FROM HERE)\Easy Print Files (PRINT FROM HERE)\"
+$SM          = "Math\SM\SM CC Edition\CC Edition Merged\"
 
 $FM          = "Math\FM\Focus Math (PRINT FROM HERE!!!)\Level "
 $FM2         = "\FM-"
@@ -40,66 +40,14 @@ $STARS       = "ELA\STARS\Grayscale\Water Marked\STARS "
 
 $comboBox1.SelectedIndex = 0
 
-function Array-Num {
-  param($Array)
-  for($i=0; $i -lt $Array.length; $i++) {
-    $Array[$i] = ($i+1)
-  }
-}
-
-$PHT1 = New-Object int[] 30
-$PHT2 = New-Object int[] 32
-$PHT3 = New-Object int[] 36
-Array-Num $PHT1
-Array-Num $PHT2
-Array-Num $PHT3
-
-$CCSMG1   = New-Object int[] 35
-$CCSMG2   = New-Object int[] 28
-$CCSMG347 = New-Object int[] 33
-$CCSMG58  = New-Object int[] 31
-$CCSMG6   = New-Object int[] 29
-$CCSMGK   = New-Object int[] 32
-Array-Num $CCSMG1
-Array-Num $CCSMG2
-Array-Num $CCSMG347
-Array-Num $CCSMG58
-Array-Num $CCSMG6
-Array-Num $CCSMGK
-
-$CCSRGK   = New-Object int[] 18
-$CCSRG18  = New-Object int[] 21
-$CCSRG235 = New-Object int[] 22
-$CCSRG4   = New-Object int[] 26
-$CCSRG6   = New-Object int[] 20
-$CCSRG7   = New-Object int[] 19
-Array-Num $CCSRGK
-Array-Num $CCSRG18
-Array-Num $CCSRG235
-Array-Num $CCSRG4
-Array-Num $CCSRG6
-Array-Num $CCSRG7
-
-
-$gradep      = 1, 2, 3
-$gradef      = 1, 2, 3, 4, 5, 6
-$gradecc     = 'K', 1, 2, 3, 4, 5, 6, 7, 8
 $gradec      = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
-$gradesm     = "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
+$gradesm     = "KM-A", "KM-B", "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
 
 #Note: Unused: "WP"- Word Play
 $VFT1        = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
 $VFT2        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF"
 $VFT3        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF", "ROOT", "IDI"
 $VFT456      = "CW", "SYN", "PL", "ANT", "HP", "HG", "HET", "PREF", "SUF", "ROOT", "IDI", "BLEN", "CLIP"
-
-$VFU2        = 1, 2
-$VFU3        = 1, 2, 3
-$VFU4        = 1, 2, 3, 4
-$VFU5        = 1, 2, 3, 4, 5
-$VFU6        = 1, 2, 3, 4, 5, 6
-$VFU7        = 1, 2, 3, 4, 5, 6, 7
-$VFU10       = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 
 $LF123       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Sent Ed"
 $LF456       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Prep", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Para Ed"
@@ -124,6 +72,13 @@ function Box-Change {
   $ComboBoxNum.SelectedIndex = 0
 }
 
+function Box-Num {
+  param($ComboBoxNum, $start, $finish)
+  for($i=$start; $i -le $finish; $i++) {
+    $ComboBoxNum.Items.add($i)
+  }
+  $ComboBoxNum.SelectedIndex = 0
+}
 
 function Grade-Select{
   param($GradeBox, $TypeBox)
@@ -139,41 +94,71 @@ function Grade-Select{
   if ($Subject -like "*CCSSM") {
     $TypeBox.Items.Clear()
     if($Grade -like "*1") {
-      Box-Change $TypeBox $CCSMG1
+      Box-Num $TypeBox 1 35
     } elseif ($Grade -like "*2") {
-      Box-Change $TypeBox $CCSMG2
+      Box-Num $TypeBox 1 28
     } elseif ($Grade -like "*6") {
-      Box-Change $TypeBox $CCSMG6
+      Box-Num $TypeBox 1 29
     } elseif ($Grade -like "*K") {
-      Box-Change $TypeBox $CCSMGK
+      Box-Num $TypeBox 1 32
     } elseif (($Grade -like "*5") -or ($Grade -like "*8")) {
-      Box-Change $TypeBox $CCSMG58
+      Box-Num $TypeBox 1 31
     } else {
-      Box-Change $TypeBox $CCSMG347
+      Box-Num $TypeBox 1 33
+    }
+  } elseif ($Subject -like "*SM") {
+    $TypeBox.Items.Clear()
+    if($Grade -like "*KM-A") {
+      Box-Num $TypeBox 1 8
+    } elseif ($Grade -like "*KM-B") {
+      Box-Num $TypeBox 9 15
+    } elseif ($Grade -like "*1A") {
+      Box-Num $TypeBox 1 10
+    } elseif ($Grade -like "*1B") {
+      Box-Num $TypeBox 11 17
+    } elseif ($Grade -like "*2A") {
+      Box-Num $TypeBox 1 5
+    } elseif ($Grade -like "*2B") {
+      Box-Num $TypeBox 6 12
+    } elseif ($Grade -like "*3A") {
+      Box-Num $TypeBox 1 5
+    } elseif ($Grade -like "*3B") {
+      Box-Num $TypeBox 6 13
+    } elseif ($Grade -like "*4A") {
+      Box-Num $TypeBox 1 5
+    } elseif ($Grade -like "*4B") {
+      Box-Num $TypeBox 6 11
+    } elseif ($Grade -like "*5A") {
+      Box-Num $TypeBox 1 6
+    } elseif ($Grade -like "*5B") {
+      Box-Num $TypeBox 7 15
+    } else {
+      #filler for 6A-8B
+      Box-Num $TypeBox 1 5
     }
   } elseif ($Subject -like "*CCSSR") {
     $TypeBox.Items.Clear()
     if($Grade -like "*K") {
-      Box-Change $TypeBox $CCSRGK
+      Box-Num $TypeBox 1 18
     } elseif ($Grade -like "*4") {
-      Box-Change $TypeBox $CCSRG4
+      Box-Num $TypeBox 1 26
     } elseif ($Grade -like "*6") {
-      Box-Change $TypeBox $CCSRG6
+      Box-Num $TypeBox 1 20
     } elseif ($Grade -like "*7") {
-      Box-Change $TypeBox $CCSRG7
+      Box-Num $TypeBox 1 19
     } elseif (($Grade -like "*1") -or ($Grade -like "*8")) {
-      Box-Change $TypeBox $CCSR18
+      Box-Num $TypeBox 1 21
     } else {
-      Box-Change $TypeBox $CCSRG235
+      Box-Num $TypeBox 1 22
     }
   } elseif ($Subject -like "*PH") {
     $TypeBox.Items.Clear()
     if($Grade -like "*1") {
-      Box-Change $TypeBox $PHT1
+      Box-Num $TypeBox 1 30
     } elseif ($Grade -like "*2") {
-      Box-Change $TypeBox $PHT2
+      Box-Num $TypeBox 1 32
     } elseif ($Grade -like "*3") {
-      Box-Change $TypeBox $PHT3
+      Box-Num $TypeBox 1 36
     }
   } elseif ($Subject -like "*SV") {
     $TypeBox.Items.Clear()
@@ -243,81 +228,81 @@ function Type-Select{
   }
   $UnitBox.Items.Clear()
   if($Type -like "*RW") {
-    Box-Change $UnitBox $VFU7
+    Box-Num $UnitBox 1 7
   } elseif ($Type -like "*CW") {
     if($Grade -like "*1") {
-      Box-Change $UnitBox $VFU6
+      Box-Num $UnitBox 1 6
     } else {
-      Box-Change $UnitBox $VFU3
+      Box-Num $UnitBox 1 3
     }
   } elseif ($Type -like "*CONT") {
-    Box-Change $UnitBox $VFU3
+    Box-Num $UnitBox 1 3
   } elseif ($Type -like "*SYN") {
     if($Grade -like "*1") {
-      Box-Change $UnitBox $VFU6
+      Box-Num $UnitBox 1 6
     } elseif ($Grade -like "*2") {
-      Box-Change $UnitBox $VFU7
+      Box-Num $UnitBox 1 7
     } elseif($Grade -like "*3" -or $Grade -like "*4") {
-      Box-Change $UnitBox $VFU3
+      Box-Num $UnitBox 1 3
     } else {
-      Box-Change $UnitBox $VFU2
+      Box-Num $UnitBox 1 2
     }
   } elseif ($Type -like "*PL") {
     if($Grade -like "*3") {
-      Box-Change $UnitBox $VFU10
+      Box-Num $UnitBox 1 10
     } else {
-      Box-Change $UnitBox $VFU6
+      Box-Num $UnitBox 1 6
     }
   } elseif ($Type -like "*ANT") {
     if($Grade -like "*1") {
-      Box-Change $UnitBox $VFU7
+      Box-Num $UnitBox 1 7
     } elseif ($Grade -like "*2") {
-      Box-Change $UnitBox $VFU5
+      Box-Num $UnitBox 1 5
     } elseif($Grade -like "*3") {
-      Box-Change $UnitBox $VFU3
+      Box-Num $UnitBox 1 3
     } else {
-      Box-Change $UnitBox $VFU2
+      Box-Num $UnitBox 1 2
     }
   } elseif ($Type -like "*HP") {
     if($Grade -like "*1") {
-      Box-Change $UnitBox $VFU7
+      Box-Num $UnitBox 1 7
     } elseif ($Grade -like "*2") {
-      Box-Change $UnitBox $VFU6
+      Box-Num $UnitBox 1 6
     } else {
-      Box-Change $UnitBox $VFU3
+      Box-Num $UnitBox 1 3
     }
   } elseif ($Type -like "*HG") {
     if($Grade -like "*1" -or $Grade -like "*2" -or $Grade -like "*3") {
-      Box-Change $UnitBox $VFU4
+      Box-Num $UnitBox 1 4
     } else {
-      Box-Change $UnitBox $VFU3
+      Box-Num $UnitBox 1 3
     }
   } elseif ($Type -like "*HET") {
     $UnitBox.Items.add(1)
   } elseif ($Type -like "*PREF") {
     if($Grade -like "*1") {
-      Box-Change $UnitBox $VFU2
+      Box-Num $UnitBox 1 2
     } elseif ($Grade -like "*2") {
-      Box-Change $UnitBox $VFU7
+      Box-Num $UnitBox 1 7
     } elseif($Grade -like "*3") {
-      Box-Change $UnitBox $VFU5
+      Box-Num $UnitBox 1 5
     } else {
-      Box-Change $UnitBox $VFU6
+      Box-Num $UnitBox 1 6
     }
   } elseif ($Type -like "*SUF") {
     if($Grade -like "*2" -or $Grade -like "*3") {
-      Box-Change $UnitBox $VFU4
+      Box-Num $UnitBox 1 4
     } else {
-      Box-Change $UnitBox $VFU6
+      Box-Num $UnitBox 1 6
     }
   } elseif ($Type -like "*ROOT") {
     if($Grade -like "*3" -or $Grade -like "*4") {
-      Box-Change $UnitBox $VFU4
+      Box-Num $UnitBox 1 4
     } else {
-      Box-Change $UnitBox $VFU5
+      Box-Num $UnitBox 1 5
     }
   } elseif ($Type -like "*IDI") {
-    Box-Change $UnitBox $VFU3
+    Box-Num $UnitBox 1 3
   } elseif ($Type -like "*BLEN") {
     $UnitBox.Items.add(1)
   } elseif ($Type -like "*CLIP") {
@@ -342,28 +327,32 @@ $comboBox1.add_SelectionChanged({
   $comboBox5.Items.Clear()
   $Subject = $comboBox1.SelectedItem.ToString()
   if($Subject -like "*CCSSM") {
-    Box-Change $comboBox2 $gradecc
-    Box-Change $comboBox4 $gradecc
+    $comboBox2.Items.add('K')
+    $comboBox4.Items.add('K')
+    Box-Num $comboBox2 1 8
+    Box-Num $comboBox4 1 8
     $textBlock4.Text = "CCSSM"
   } elseif ($Subject -like "*CCSSR") {
-    Box-Change $comboBox2 $gradecc
-    Box-Change $comboBox4 $gradecc
+    $comboBox2.Items.add('K')
+    $comboBox4.Items.add('K')
+    Box-Num $comboBox2 1 8
+    Box-Num $comboBox4 1 8
     $textBlock4.Text = "CCSSR"
   } elseif ($Subject -like "*SM") {
     Box-Change $comboBox2 $gradesm
     Box-Change $comboBox4 $gradesm
     $textBlock4.Text = "SM"
   } elseif ($Subject -like "*LF") {
-    Box-Change $comboBox2 $gradef
-    Box-Change $comboBox4 $gradef
+    Box-Num $comboBox2 1 6
+    Box-Num $comboBox4 1 6
     $textBlock4.Text = "LF"
   } elseif ($Subject -like "*VF") {
-    Box-Change $comboBox2 $gradef
-    Box-Change $comboBox4 $gradef
+    Box-Num $comboBox2 1 6
+    Box-Num $comboBox4 1 6
     $textBlock4.Text = "VF"
   } elseif ($Subject -like "*PH") {
-    Box-Change $comboBox2 $gradep
-    Box-Change $comboBox4 $gradep
+    Box-Num $comboBox2 1 3
+    Box-Num $comboBox4 1 3
     $textBlock4.Text = "PH"
   } elseif ($Subject -like "*FR") {
     Box-Change $comboBox2 $gradec
@@ -579,21 +568,25 @@ function Find-File{
   } elseif ($CBOX1 -like "*sm") {
     #Regular SM Levels are 1A to 6B. 7A-8B are special and are all in their own directories
     #File paths missing...
-    if($CBOX2 -like "*7A") {
+    if($CBOX2 -like "*6A") {
+      #6A stuff
+    } elseif($CBOX2 -like "*6B") {
+      #6B stuff
+    } elseif($CBOX2 -like "*7A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7A (eVer - STAMPED)\"
-
+      $FILE = "TB 7A " + $CBOX3 + " *.pdf"
     } elseif ($CBOX2 -like "*7B") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7B (eVer - STAMPED)\"
-
+      $FILE = "TB 7B " + $CBOX3 + " *.pdf"
     } elseif ($CBOX2 -like "*8A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\TB 8A (eVer - STAMPED)\"
-
+      $FILE = "TB 8A " + $CBOX3 + " *.pdf"
     } elseif ($CBOX2 -like "*8B") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\TB 8B (eVer - STAMPED)\" 
-
+      $FILE = "TB 8B " + $CBOX3 + " *.pdf"
     } else {
       $DIRECTORY = $STAFFPATH + $SM + $CBOX2 + "\"
-      $FILE      = $CBOX2 + " Unit " + $CBOX3 + " (STAMPED).pdf"
+      $FILE      = $CBOX2 + " Unit " + $CBOX3 + ".pdf"
     }
   } elseif ($CBOX1 -like "*fm") {
     $DIRECTORY = $STAFFPATH + $FM + $CBOX2 + "\"
