@@ -11,6 +11,7 @@ $CCSSMATH    = "Math\CCSS Math\New_CC_8-25-2015-01-22 (eVER) STAMPED\Math\Gr."
 $CCML        = "M Lesson "
 
 $SM          = "Math\SM\SM CC Edition\CC Edition Merged\"
+$SMOLD       = "Math\SM\Text Books and Work Books (PRINT FROM HERE)\Easy Print Files (PRINT FROM HERE)\"
 
 $FM          = "Math\FM\Focus Math (PRINT FROM HERE!!!)\Level "
 $FM2         = "\FM-"
@@ -41,6 +42,11 @@ $STARS       = "ELA\STARS\Grayscale\Water Marked\STARS "
 $gradec      = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
 $gradesm     = "KM-A", "KM-B", "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
 
+$SM7A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6
+$SM7B        = 9.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 11.5, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 16.1, 16.2, 16.3, 16.4, 17.1, 17.2, 17.3, 17.4, 17.5
+$SM8A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5
+$SM8B        = 8.1, 8.2, 8.3
+
 #Note: Unused: "WP"- Word Play
 $VFT1        = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
 $VFT2        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF"
@@ -53,7 +59,7 @@ $LF456       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Prep", "Sents", "Cap", "
 $FRT         = "C&C", "DCMI", "MP", "C&E", "MID", "SEQ"
 $FMT         = "BNS", "DPA", "IGC", "UA", "UE", "UG"
 
-$SV9         = "L1-3", "L5-6", "L7-9"
+$SV9         = "L1-3", "L4-6", "L7-9"
 $SV12        = "L1-4", "L5-8", "L9-12"
 $SV15        = "L1-5", "L6-10", "L11-15"
 
@@ -135,8 +141,20 @@ function Grade-Select{
       Box-Num $TypeBox 1 6
     } elseif ($Grade -like "*5B") {
       Box-Num $TypeBox 7 15
+    } elseif ($Grade -like "*6A") {
+      Box-Num $TypeBox 1 6
+    } elseif ($Grade -like "*6B") {
+      Box-Num $TypeBox 7 13
+    } elseif ($Grade -like "*7A") {
+      Box-Change $TypeBox $SM7A
+    } elseif ($Grade -like "*7B") {
+      Box-Change $TypeBox $SM7B
+    } elseif ($Grade -like "*8A") {
+      Box-Change $TypeBox $SM8A
+    } elseif ($Grade -like "*8B") {
+      Box-Change $TypeBox $SM8B
     } else {
-      #filler for 6A-8B
+      #This shouldn't happen though...?
       Box-Num $TypeBox 1 5
     }
   } elseif ($Subject -like "*CCSSR") {
@@ -411,14 +429,21 @@ function Find-File{
   $NullBox3  = $false
   try {
     $CBOX3  = $comboBox3.SelectedItem.ToString()
-    $VFUNIT = $comboBox6.SelectedItem.ToString()
   } catch [system.exception] {
     $NullBox3 = $true
   } finally {
     #do nothing
   }
+  try {
+    $VFUNIT = $comboBox6.SelectedItem.ToString()
+  } catch [system.exception] {
+    Write-Host "No VF"
+  } finally {
+    #do nothing
+  }
   
 #Converts user inputted shorthand into the actual filename counterparts
+#TO-DO TESTING: Remove the FR, FM, and LF cases. 
   if($NullBox3) {
     Write-Host "NullBox3"
   } elseif($CBOX3 -like "*RW") {
@@ -578,12 +603,10 @@ function Find-File{
     $DIRECTORY = $STAFFPATH + $CCSSMATH + $CBOX2 + $CCSS + $CBOX2 + "M - SB\"
     $FILE      = "CCSS " + $CBOX2 + $CCML + $CBOX3 + " SB.pdf"
   } elseif ($CBOX1 -like "*sm") {
-    #Regular SM Levels are 1A to 6B. 7A-8B are special and are all in their own directories
-    #File paths missing...
-    if($CBOX2 -like "*6A") {
-      #6A stuff
-    } elseif($CBOX2 -like "*6B") {
-      #6B stuff
+    #Regular SM Levels are 1A to 5B. 6A-6B use the old directories, 7A-8B are special and are all in their own directories
+    if($CBOX2 -like "*6A" -or $CBOX2 -like "*6B") {
+      $DIRECTORY = $SMOLD + $CBOX2 + "\"
+      $FILE      = $CBOX2 + " Unit " + $CBOX3 + " (STAMPED).pdf"
     } elseif($CBOX2 -like "*7A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7A (eVer - STAMPED)\"
       $FILE = "TB 7A " + $CBOX3 + " *.pdf"
@@ -611,7 +634,7 @@ function Find-File{
     $FILE      = "CCSS " + $CBOX2 + $CCRL + $CBOX3 + " SB.pdf"
   } elseif ($CBOX1 -like "*lf") {
     $DIRECTORY = $STAFFPATH + $LF + $CBOX2 + $LF2 
-    $FILE      = "LF" + $CBOX2 + " (" + $LFNUM +") " + $FULLTYPE + ".pdf"
+    $FILE      = "LF" + $CBOX2 + " (*) " + $FULLTYPE + ".pdf"
   } elseif ($CBOX1 -like "*vf") {
     $DIRECTORY = $STAFFPATH + $VF + $CBOX2 + "\"
     $FILE      = $VF2 + $CBOX2 + " - (*) " + $FULLTYPE + " - Unit " + $VFUNIT + "*.pdf"
@@ -629,7 +652,7 @@ function Find-File{
     $FILE      = "STARS " + $CBOX2 + " - " + $FULLTYPE + ".pdf"
   }
 
-  #If the script was supposed to find a pdf (every case except SMTB 7A-8B), print or open those files
+  #Print or open desired files
   if($FILE -like "*.pdf") {
     $FILEPDIR = $DIRECTORY + $FILE
 
@@ -645,7 +668,7 @@ function Find-File{
       }
     }
   } else {
-    #If the right file couldn't be parsed by this script (yet)
+    #If the right file couldn't be parsed by this script (due to a bug)
     #Open the directory where it should be and let the worker manually navigate to it
     ii $DIRECTORY
   }
