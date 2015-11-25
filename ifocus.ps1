@@ -1,4 +1,4 @@
-.\loadDialog.ps1 -XamlPath 'test.xaml'
+.\loadDialog.ps1 -XamlPath 'GUI.xaml'
 
 $USER = $Env:userprofile
 

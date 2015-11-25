@@ -1,0 +1,1 @@
+powershell.exe -sta -windowstyle hidden ".\ifocus.ps1"
