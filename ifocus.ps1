@@ -45,13 +45,15 @@ $gradesm     = "KM-A", "KM-B", "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "
 $SM7A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6
 $SM7B        = 9.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 11.5, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 16.1, 16.2, 16.3, 16.4, 17.1, 17.2, 17.3, 17.4, 17.5
 $SM8A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5
-$SM8B        = 8.1, 8.2, 8.3
+$SM8B        = 8.1, 8.2, 8.3, 8.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4, 12.5, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 14.6
 
 #Note: Unused: "WP"- Word Play
 $VFT1        = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
 $VFT2        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF"
 $VFT3        = "CW", "SYN", "PL", "ANT", "HP", "HG", "PREF", "SUF", "ROOT", "IDI"
 $VFT456      = "CW", "SYN", "PL", "ANT", "HP", "HG", "HET", "PREF", "SUF", "ROOT", "IDI", "BLEN", "CLIP"
+
+$PHT1        = "Word List", "1-4", "5-7", "8-10", "11-13", "14-16", "17-19", "20-23", "24-26", "27-30"
 
 $LF123       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Sent Ed"
 $LF456       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Prep", "Sents", "Cap", "Abbrev", "Punct", "Usage", "Vocab", "Para Ed"
@@ -173,10 +175,12 @@ function Grade-Select{
     }
   } elseif ($Subject -like "*PH") {
     if($Grade -like "*1") {
-      Box-Num $TypeBox 1 30
+      Box-Change $Typebox $PHT1
     } elseif ($Grade -like "*2") {
+      $TypeBox.Items.add("Word List")
       Box-Num $TypeBox 1 32
     } elseif ($Grade -like "*3") {
+      $TypeBox.Items.add("Word List")
       Box-Num $TypeBox 1 36
     }
   } elseif ($Subject -like "*SV") {
@@ -639,8 +643,19 @@ function Find-File{
     $DIRECTORY = $STAFFPATH + $VF + $CBOX2 + "\"
     $FILE      = $VF2 + $CBOX2 + " - (*) " + $FULLTYPE + " - Unit " + $VFUNIT + "*.pdf"
   } elseif ($CBOX1 -like "*ph") {
-    $DIRECTORY = $STAFFPATH + $PH + $CBOX2 + $PH2 + "PH" + $CBOX2 + $PH3
-    $FILE      = "Phonics " + $CBOX2 + " - Lesson " + $CBOX3 + ".pdf"
+    if($CBOX2 -like "*1") {
+      $DIRECTORY = $STAFFPATH + $PH + $CBOX2 + $PH2
+      $FILE      = "*" + $CBOX3 + "*.pdf"
+    } else {
+      $DIRECTORY = $STAFFPATH + $PH + $CBOX2 + $PH2 + "PH" + $CBOX2 + $PH3
+      if($CBOX3 -like "*Word List") {
+        $DIRECTORY = $STAFFPATH + $PH + $CBOX2 + $PH2
+        $FILE      = "*" + $CBOX3 + ".pdf"
+      } else {
+        $DIRECTORY = $STAFFPATH + $PH + $CBOX2 + $PH2 + "PH" + $CBOX2 + $PH3
+        $FILE      = "Phonics " + $CBOX2 + " - Lesson " + $CBOX3 + ".pdf"
+      }
+    }
   } elseif ($CBOX1 -like "*fr") {
     $DIRECTORY = $STAFFPATH + $FR + $CBOX2 + "\"
     $FILE      = "FR " + $CBOX2 + " - " + $CBOX3 + ".pdf"
