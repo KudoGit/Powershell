@@ -16,6 +16,8 @@ $SMOLD       = "Math\SM\Text Books and Work Books (PRINT FROM HERE)\Easy Print F
 $FM          = "Math\FM\Focus Math (PRINT FROM HERE!!!)\Level "
 $FM2         = "\FM-"
 
+$MA          = "Math\MA\"
+
 #Reading worksheet directories
 $CCSSELA     = "ELA\CCSS Reading (STAMPED)\New_CC_8-25-2015-01-22 (eVER) STAMPED\Reading - Gr."
 $CCRL        = "R Lesson "
@@ -40,12 +42,17 @@ $STAMS       = "Math\STAMS\Water Marked\"
 $STARS       = "ELA\STARS\Grayscale\Water Marked\STARS "
 
 $gradec      = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'
-$gradesm     = "KM-A", "KM-B", "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "7A", "7B", "8A", "8B"
+$gradesm     = "KM-A", "KM-B", "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B", "5A", "5B", "6A", "6B",  "TB7A", "TB7B", "TB8A", "TB8B", "WB7A", "WB7B", "WB8A", "WB8B"
 
 $SM7A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6
 $SM7B        = 9.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 11.5, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 16.1, 16.2, 16.3, 16.4, 17.1, 17.2, 17.3, 17.4, 17.5
 $SM8A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5
 $SM8B        = 8.1, 8.2, 8.3, 8.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4, 12.5, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 14.6
+
+
+$WB7B = 9.1, 9.2
+$WB8A = 1.1, 1.2
+$WB8B = 9.1, 9.2
 
 #Note: Unused: "WP"- Word Play
 $VFT1        = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
@@ -61,10 +68,11 @@ $LF456       = "Nouns", "Adj", "Pron", "Verbs", "Adv", "Prep", "Sents", "Cap", "
 $FRT         = "C&C", "DCMI", "MP", "C&E", "MID", "SEQ"
 $FMT         = "BNS", "DPA", "IGC", "UA", "UE", "UG"
 
+$MAG         = "K (A Level)", "1 (B Level)", "2 (C Level)", "3 (D Level)", "4 (E Level)", "5 (F Level)", "6 (G Level)", "7 (H Level)", "8 (I Level)", "9 (J Level)", "10 (K Level)", "11 (L Level)", "12 (M Level)"
+
 $SV9         = "L1-3", "L4-6", "L7-9"
 $SV12        = "L1-4", "L5-8", "L9-12"
 $SV15        = "L1-5", "L6-10", "L11-15"
-
 
 $STARS6      = "L1", "L2", "R1-2", "L3", "L4", "R3-4", "L5", "L6", "R5-6", "FR6"
 $STARS8      = "L1", "L2", "R1-2", "L3", "L4", "R3-4", "L5", "L6", "R5-6", "L7", "L8", "R7-8", "FR8"
@@ -147,14 +155,22 @@ function Grade-Select{
       Box-Num $TypeBox 1 6
     } elseif ($Grade -like "*6B") {
       Box-Num $TypeBox 7 13
-    } elseif ($Grade -like "*7A") {
+    } elseif ($Grade -like "*TB7A") {
       Box-Change $TypeBox $SM7A
-    } elseif ($Grade -like "*7B") {
+    } elseif ($Grade -like "*TB7B") {
       Box-Change $TypeBox $SM7B
-    } elseif ($Grade -like "*8A") {
+    } elseif ($Grade -like "*TB8A") {
       Box-Change $TypeBox $SM8A
-    } elseif ($Grade -like "*8B") {
+    } elseif ($Grade -like "*TB8B") {
       Box-Change $TypeBox $SM8B
+    } elseif ($Grade -like "*WB7A") {
+      Box-Num $TypeBox 1 8
+    } elseif ($Grade -like "*WB7B") {
+      Box-Num $TypeBox 9 17
+    } elseif ($Grade -like "*WB8A") {
+      Box-Num $TypeBox 1 7
+    } elseif ($Grade -like "*WB8B") {
+      Box-Num $TypeBox 8 14
     } else {
       #This shouldn't happen though...?
       Box-Num $TypeBox 1 5
@@ -414,6 +430,10 @@ $comboBox1.add_SelectionChanged({
     Box-Change $comboBox2 $gradec
     Box-Change $comboBox4 $gradec
     $textBlock4.Text = "STAMS"
+  } elseif ($Subject -like "*MA") {
+    Box-Change $comboBox2 $MAG
+    Box-Change $comboBox4 $MAG
+    $textBlock4.Text = "MA"
   }
 })
 
@@ -611,18 +631,30 @@ function Find-File{
     if($CBOX2 -like "*6A" -or $CBOX2 -like "*6B") {
       $DIRECTORY = $SMOLD + $CBOX2 + "\"
       $FILE      = $CBOX2 + " Unit " + $CBOX3 + " (STAMPED).pdf"
-    } elseif($CBOX2 -like "*7A") {
+    } elseif($CBOX2 -like "*TB7A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7A (eVer - STAMPED)\"
       $FILE = "TB 7A " + $CBOX3 + " *.pdf"
-    } elseif ($CBOX2 -like "*7B") {
+    } elseif ($CBOX2 -like "*TB7B") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\TB 7B (eVer - STAMPED)\"
       $FILE = "TB 7B " + $CBOX3 + " *.pdf"
-    } elseif ($CBOX2 -like "*8A") {
+    } elseif ($CBOX2 -like "*TB8A") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\TB 8A (eVer - STAMPED)\"
       $FILE = "TB 8A " + $CBOX3 + " *.pdf"
-    } elseif ($CBOX2 -like "*8B") {
+    } elseif ($CBOX2 -like "*TB8B") {
       $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\TB 8B (eVer - STAMPED)\" 
       $FILE = "TB 8B " + $CBOX3 + " *.pdf"
+    } elseif($CBOX2 -like "*WB7A") {
+      $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\WB 7A - CUT + STAMPED\WB 7A Masters (by chapter)\"
+      $FILE = "WB 7A " + $CBOX3 + " *.pdf"
+    } elseif($CBOX2 -like "*WB7B") {
+      $DIRECTORY = $STAFFPATH + "Math\SM\Discovering(7A & B) Math\WB 7B - CUT + STAMPED\WB 7B Masters (by chapter)\"
+      $FILE = "WB 7B " + $CBOX3 + " *.pdf"
+    } elseif($CBOX2 -like "*WB8A") {
+      $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\WB 8A - CUT + STAMPED\WB 8A Masters (by chapter)\"
+      $FILE = "WB 8A " + $CBOX3 + " *.pdf"
+    } elseif($CBOX2 -like "*WB8B") {
+      $DIRECTORY = $STAFFPATH + "Math\SM\Dimensions(8A & B) Math\WB 8B - CUT + STAMPED\WB 8B Masters (by chapter)\"
+      $FILE = "WB 8B " + $CBOX3 + " *.pdf"
     } else {
       $DIRECTORY = $STAFFPATH + $SM + $CBOX2 + "\"
       $FILE      = $CBOX2 + " Unit " + $CBOX3 + ".pdf"
