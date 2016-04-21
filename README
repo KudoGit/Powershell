@@ -1,0 +1,31 @@
+iFocus Printing
+by James Kuch
+
+Usage: 
+-run run.bat or run (with console).bat
+-enter fields from drop-down menus to select files
+-press buttons to start printing.
+
+
+Files:
+
+ifocus.ps1:
+-Finds the worksheet files selected by the user and opens/prints those files.
+-Only useful on an iFocus computer with dropbox access to those worksheets.
+-Pros: Marginally better than manually searching for every directory
+-Cons: Any file system updates have to be fixed in the main script manually.
+
+loadDialog.ps1
+-links the xaml to the main powershell script.
+-Not coded by me, found from: https://gallery.technet.microsoft.com/scriptcenter/PowerShell-GUI-dc224be6
+
+GUI.xaml
+-The interface code, or at least its formatting. The subjects are hardcoded in and act as
+the basis for what all the other fields contain.
+
+run.bat
+-opens powershell and runs the script. Essentially this program's executable.
+
+run (with console).bat
+-does the same as the above but shows the console
+-for debugging, but also may be required if the script is blocked due to security settings
