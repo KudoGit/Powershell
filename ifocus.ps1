@@ -38,6 +38,10 @@ $FR2         = "\FR "
 $SV          = "ELA\SV\Student Work\SV CUT\"
 $SV2         = "SV "
 
+$LHB         = "ELA\CCSS Reading (STAMPED)\NEW CC LHB (ALL SPLIT) STAMPED\LHB - Grade "
+$LHB2        = " (SPLIT)\LHB "
+$LHB3        = " SB\LHB "
+
 $STAMS       = "Math\STAMS\Water Marked\"
 $STARS       = "ELA\STARS\Grayscale\Water Marked\STARS "
 
@@ -48,6 +52,11 @@ $SM7A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 
 $SM7B        = 9.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 11.5, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 16.1, 16.2, 16.3, 16.4, 17.1, 17.2, 17.3, 17.4, 17.5
 $SM8A        = 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 7.5
 $SM8B        = 8.1, 8.2, 8.3, 8.1, 9.2, 9.3, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4, 12.5, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4, 14.5, 14.6
+
+#Not ready yet
+$WB7B = 9.1, 9.2
+$WB8A = 1.1, 1.2
+$WB8B = 9.1, 9.2
 
 #Note: Unused: "WP"- Word Play
 $VFT1        = "RW", "CW", "CONT", "SYN", "ANT", "HP", "HG", "PREF"
@@ -226,7 +235,22 @@ function Grade-Select{
     } else {
       Box-Change $Typebox $VFT456
     }
+  } elseif ($Subject -like "*LHB") {
+    if($Grade -like "*2") {
+      Box-Num $TypeBox 1 26
+    } elseif ($Grade -like "*3") {
+      Box-Num $TypeBox 1 33
+    } elseif ($Grade -like "*4") {
+      Box-Num $TypeBox 1 24
+    } elseif ($Grade -like "*5") {
+      Box-Num $TypeBox 1 23
+    } elseif ($Grade -like "*8") {
+      Box-Num $TypeBox 1 19
+    } else { #6 & 7
+      Box-Num $TypeBox 1 17
+    }
   }
+    
 }
 
 $comboBox2.add_SelectionChanged({
@@ -429,6 +453,10 @@ $comboBox1.add_SelectionChanged({
     Box-Change $comboBox2 $MAG
     Box-Change $comboBox4 $MAG
     $textBlock4.Text = "MA"
+  } elseif ($Subject -like "*LHB") {
+    Box-Num $comboBox2 2 8
+    Box-Num $comboBox4 2 8
+    $textBlock4.Text = "LHB"
   }
 })
 
@@ -692,6 +720,9 @@ function Find-File{
   } elseif ($CBOX1 -like "*stars") {
     $DIRECTORY = $STAFFPATH + $STARS + $CBOX2 + "\"
     $FILE      = "STARS " + $CBOX2 + " - " + $FULLTYPE + ".pdf"
+  } elseif ($CBOX1 -like "*lhb") {
+    $DIRECTORY = $STAFFPATH + $LHB + $CBOX2 + $LHB2 + $CBOX2 + " SB\"
+    $FILE      = "LHB " + $CBOX2 + " - Lesson " +$CBOX3 + " SB.pdf"
   }
 
   #Print or open desired files

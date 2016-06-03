@@ -24,6 +24,7 @@
             <ComboBoxItem>VF</ComboBoxItem>
             <ComboBoxItem>SV</ComboBoxItem>
             <ComboBoxItem>PH</ComboBoxItem>
+            <ComboBoxItem>LHB</ComboBoxItem>
             <ComboBoxItem>STARS</ComboBoxItem>
         </ComboBox>
         <ComboBox Name="comboBox2" HorizontalAlignment="Left" Margin="115,70,0,0" VerticalAlignment="Top" Width="55"/>
